@@ -3,6 +3,7 @@
 En este apartado estaremos siguiendo el material de Carpentry, capitulo 15 [Producing Reports With knitr](https://swcarpentry.github.io/r-novice-gapminder/15-knitr-markdown/index.html). 
 
 Contenido:
+
 - [1. Informacion basica que compone a un Rmarkdown](#basic)
 - [2. Tipos de formatos generados para reportes con Rmarkdown](#formatos)
 - [3. Diferentes lenguajes empleados en Rmarkdown](#lenguajes)
@@ -14,11 +15,63 @@ Contenido:
 - [9. Agregar notas de ayuda](#note)
 - [10. Generar indice en el reporte](#indice)
 
+## Requisitos 💻
+
+* Haber instalado Rmarkdown `install.packages('rmarkdown')`
+* Instalar LaTeX: Si ya tienen alguna versión de Latex, no hacer nada, Si no tienen instalado Latex, entonces instalar alguna
+distribución MiKTeX, MacTeX, and TeX Live o TinyTex:
+
+`install.packages('tinytex')`
+
+`tinytex::install_tinytex()`
+
+`# to uninstall TinyTeX, run`
+
+`# tinytex::uninstall_tinytex()`
+
+
 ## 1.- Informacion basica que compone a un Rmarkdown  <a name="basic"></a>
+
+### Archivo inicial
+
+Para crear un archivo dar click en `File/New file/R markdown`. El archivo generado tiene en la parte superior las siguientes instrucciones:
+
+```
+---
+title: "Sesion de Rmarkdown"
+author: "Evelia Coss"
+date: "4/9/2022"
+output: html_document 
+---
+```
+
+En donde se indica el nombre del archivo que le dimos al crearlo, el nombre del autor, la fecha y el tipo de archivo de salida. En este caso es un archivo tipo html.
+
+Ademas, se incluyen una serie de instrucciones entre la linea de comandos para obtener el resumen (summary) de la variable cars. Las instrucciones pueden contener un titulo, en este caso "cars".
+
+```
+summary(cars)
+```
 
 ## 2. Tipos de formatos generados para reportes con Rmarkdown <a name="formatos"></a>
 
+Con Rmarkdown puedes generar diversos archivos de salida como son:
+
+* PDF
+  - [Tesis ejemplo 1](https://ourcodingclub.github.io/tutorials/rmarkdown-dissertation/)
+  - [Tesis ejemplo2](http://destio.us.es/calvo/memoriatfe/MemoriaTFE_PedroLuque_2017Nov_imprimir2caras.pdf) 
+  - [Curriculum vitae](https://elipapa.github.io/markdown-cv/) 
+* html
+  - [Pagina web](https://bookdown.org/yihui/rmarkdown/html-document.html#table-of-contents)
+  - [Presentaciones](https://bookdown.org/yihui/rmarkdown/xaringan.html)
+* [Word](https://bookdown.org/yihui/rmarkdown/word-document.html)
+
 ## 3. Diferentes lenguajes empleados en Rmarkdown <a name="lenguajes"></a>
+
+* R code 
+* 
+
+
 
 ## 4. Visualizacion grafica <a name="grafica"></a>
 
@@ -31,3 +84,13 @@ Contenido:
 ## 9. Agregar notas de ayuda <a name="note"></a>
 
 ## 10. Generar indice en el reporte <a name="indice"></a>
+
+# Referencias 📚
+
+- [bookdown: Authoring Books and Technical Documents with R Markdown](https://bookdown.org/yihui/bookdown/)
+
+- [The Comprehensive LaTeX Symbol List](http://tug.ctan.org/info/symbols/comprehensive/symbols-a4.pdf)
+
+- [Create Awesome LaTeX Table with knitr::kable and KableExtra](https://haozhu233.github.io/kableExtra/awesome_table_in_pdf.pdf)
+
+- [Cpitulo 15 Software Carpentry](https://swcarpentry.github.io/r-novice-gapminder/15-knitr-markdown/index.html)
