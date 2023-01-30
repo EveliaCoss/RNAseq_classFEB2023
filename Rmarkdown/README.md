@@ -40,7 +40,7 @@ Para crear un archivo dar click en `File/New file/R markdown`. El archivo genera
 ---
 title: "Sesion de Rmarkdown"
 author: "Evelia Coss"
-date: "4/9/2022"
+date: "2023-01-30"
 output: html_document 
 ---
 ```
@@ -69,9 +69,22 @@ Con Rmarkdown puedes generar diversos archivos de salida como son:
 ## 3. Diferentes lenguajes empleados en Rmarkdown <a name="lenguajes"></a>
 
 * R code 
-* 
+* Pandoc’s Markdown
+* Latex
+* html
 
-
+Dentro de los chunck:
+* Rcode
+* Bash
+    `x = 'hello, world!'
+    echo x`
+* D3
+* Python 
+    `x = 'hello, world!'
+    print(x.split(' '))`
+* Rcpp
+* SQL
+* Stan
 
 ## 4. Visualizacion grafica <a name="grafica"></a>
 
@@ -94,3 +107,5 @@ Con Rmarkdown puedes generar diversos archivos de salida como son:
 - [Create Awesome LaTeX Table with knitr::kable and KableExtra](https://haozhu233.github.io/kableExtra/awesome_table_in_pdf.pdf)
 
 - [Cpitulo 15 Software Carpentry](https://swcarpentry.github.io/r-novice-gapminder/15-knitr-markdown/index.html)
+
+- [Pandoc's Markdown](https://pandoc.org/MANUAL.html#pandocs-markdown)
