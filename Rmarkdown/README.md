@@ -77,17 +77,12 @@ Dentro de los chunck:
 * Rcode
 * Bash
 
-    `x = 'hello, world!'`
+    `x=$(echo 'hello, world!')'`
     
-    `echo x`
+    `echo $x`
     
 * D3
 * Python 
-
-    `x = 'hello, world!'`
-    
-    `print(x.split(' '))`
-    
 * Rcpp
 * SQL
 * Stan
