@@ -67,6 +67,12 @@ Los titulos se dividen por el simbolo `#`, de la siguiente manera:
 ##### Plantas vaculares (sub4)
 ```
 
+# Genero Plantae (titulo principal)
+## Plantas Verdes (sub1)
+### Streptophyta (sub2)
+#### Plantas terrestres (sub3)
+##### Plantas vaculares (sub4)
+
 ### Letras en diferentes estilos
 
 Puedes resaltar tu informacion colocando el simbolo `*` antes y despues del texto: Ejemplo: *italica*, **negritas** y ***ambos tipos de estilo***.
@@ -79,7 +85,7 @@ Puedes resaltar tu informacion colocando el simbolo `*` antes y despues del text
 
 ### Listas
 
-Simple (Una sola division):
+#### Simple (Una sola division):
 
 ```
 * one
@@ -91,20 +97,9 @@ Simple (Una sola division):
 * two
 * three
 
-Compleja:
+#### Compleja:
 
 ```
-* one
-* two
-    - 2a
-    - 2b
-* three
-    - 3a
-        + 3rd layer
-    - 2nd layer
-* 1st layer
-```
-
 * one
 * two
     - 2a
@@ -114,11 +109,21 @@ Compleja:
         + 3rd layer
     - 2nd layer
 * 1st layer
-
-Otro ejemplo:
-
 ```
 
+* one
+* two
+    - 2a
+    - 2b
+* three
+    - 3a
+        + 3rd layer
+    - 2nd layer
+* 1st layer
+
+#### Otro ejemplo:
+
+```
 1) item 10
     a) item 10a
     b) item 10b
