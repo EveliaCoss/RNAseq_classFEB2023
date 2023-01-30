@@ -68,11 +68,13 @@ Los titulos se dividen por el simbolo `#`, de la siguiente manera:
 ##### Plantas vaculares (sub4)
 ```
 
+*****
 # Genero Plantae (titulo principal)
 ## Plantas Verdes (sub1)
 ### Streptophyta (sub2)
 #### Plantas terrestres (sub3)
 ##### Plantas vaculares (sub4)
+*****
 
 ### Letras en diferentes estilos
 
