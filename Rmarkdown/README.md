@@ -366,7 +366,7 @@ $$y = \mu + \sum_{i=1}^p \beta_i x_i + \epsilon$$
 
 * Agregar subindices para formulas (F~2~)  (CO~2~), con `html` CO<sub>2</sub>
 
-* Agregar super indice (F^2^) (E=MC^2^), alternativamente con `html` E=MC<sup>2</sup>
+* Agregar super indice (F^2^) $E=MC^2$, alternativamente con `html` E=MC<sup>2</sup>
 
 ## 9. Agregar notas de ayuda <a name="note"></a>
 
@@ -459,6 +459,7 @@ output:
 
 Para mas temas puedes entrar al siguiente link: https://www.datadreaming.org/post/r-markdown-theme-gallery/
 
+-------------------------------
 # Referencias 📚
 
 - [bookdown: Authoring Books and Technical Documents with R Markdown](https://bookdown.org/yihui/bookdown/)
@@ -473,4 +474,4 @@ Para mas temas puedes entrar al siguiente link: https://www.datadreaming.org/pos
 
 - [Basic Syntax](https://www.markdownguide.org/basic-syntax/)
 
-
+- [Apuntes sobre Markdown](https://support.squarespace.com/hc/es/articles/206543587-Apuntes-sobre-Markdown)
