@@ -1,7 +1,5 @@
 # Introduccion a Rmarkdown
 
-En este apartado estaremos siguiendo el material de Carpentry, capitulo 15 [Producing Reports With knitr](https://swcarpentry.github.io/r-novice-gapminder/15-knitr-markdown/index.html). 
-
 Contenido:
 
 - [1. Informacion basica que compone a un Rmarkdown](#basic)
@@ -510,7 +508,7 @@ Para mas temas puedes entrar al siguiente link: https://www.datadreaming.org/pos
 
 - [Create Awesome LaTeX Table with knitr::kable and KableExtra](https://haozhu233.github.io/kableExtra/awesome_table_in_pdf.pdf)
 
-- [Cpitulo 15 Software Carpentry](https://swcarpentry.github.io/r-novice-gapminder/15-knitr-markdown/index.html)
+- [Capitulo 15 Producing Reports With knitr- Software Carpentry](https://swcarpentry.github.io/r-novice-gapminder/15-knitr-markdown/index.html)
 
 - [Pandoc's Markdown](https://pandoc.org/MANUAL.html#pandocs-markdown)
 
