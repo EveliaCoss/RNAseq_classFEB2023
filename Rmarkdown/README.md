@@ -295,20 +295,33 @@ summary(pressure)
 <table class="table table-hover">
   <thead>
     <tr>
-      <th scope="col"><center>Experimentos</center></th>
-      <th scope="col"><center>No. de Transcriptomas</center></th>
+      <th scope="col"><center>Num</center></th>
+      <th scope="col"><center>Header</center></th>
+      <th scope="col"><center>Header2</center></th>
+      <th scope="col"><center>Header3</center></th>
     </tr>
   </thead>
   <tbody>
   </tr>
     <tr class="table-light">
-      <th scope="row">Etapas de desarrollo de la silicua</th>
-      <td><center>4</center></td>
+      <th scope="row">1</th>
+      <td><center>first</center></td>
+      <td><center>1st</center></td>
+      <td><center>One</center></td>
+  </tr>
+   </tr>
+    <tr class="table-light">
+      <th scope="row">2</th>
+      <td><center>second</center></td>
+      <td><center>2nd</center></td>
+      <td><center>Two</center></td>
   </tr>
   </tr>
     <tr class="table-light">
-      <th scope="row">Raíz, flor, fruto y hoja</th>
-      <td><center>4</center></td>
+      <th scope="row">3</th>
+      <td><center>third</center></td>
+      <td><center>3rd</center></td>
+      <td><center>Three</center></td>
   </tr>
   </tbody>
 </table>
