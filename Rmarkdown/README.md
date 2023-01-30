@@ -115,8 +115,42 @@ Compleja:
     - 2nd layer
 * 1st layer
 
+Con otros formatos:
 
+> Opcion A
 
+```
+#. item 1
+#. item 2
+#. item 3
+```
+#. item 1
+#. item 2
+#. item 3
+
+> Opcion B
+
+```
+i. item 4
+ii. item 5
+iii. item 6
+```
+
+i. item 4
+ii. item 5
+iii. item 6
+
+> Opcion C
+
+```
+(A) item 7
+(B) item 8
+(C) item 9
+```
+
+(A) item 7
+(B) item 8
+(C) item 9
 
 ## 2. Tipos de formatos generados para reportes con Rmarkdown <a name="formatos"></a>
 
