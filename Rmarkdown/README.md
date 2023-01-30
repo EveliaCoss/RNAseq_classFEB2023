@@ -76,12 +76,16 @@ Con Rmarkdown puedes generar diversos archivos de salida como son:
 Dentro de los chunck:
 * Rcode
 * Bash
-    `x = 'hello, world!'
-    echo x`
+
+    `x = 'hello, world!'`
+    `echo x`
+    
 * D3
 * Python 
-    `x = 'hello, world!'
-    print(x.split(' '))`
+
+    `x = 'hello, world!'`
+    `print(x.split(' '))`
+    
 * Rcpp
 * SQL
 * Stan
