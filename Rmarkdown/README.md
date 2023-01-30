@@ -115,42 +115,28 @@ Compleja:
     - 2nd layer
 * 1st layer
 
-Con otros formatos:
-
-> Opcion A
+Otro ejemplo:
 
 ```
-#. item 1
-#. item 2
-#. item 3
-```
-#. item 1
-#. item 2
-#. item 3
 
-> Opcion B
-
-```
-i. item 4
-ii. item 5
-iii. item 6
+1) item 10
+    a) item 10a
+    b) item 10b
+2) item 11
+    i) item 11a
+    i) item 11b
+3) item 12
 ```
 
-i. item 4
-ii. item 5
-iii. item 6
+1) item 10
+    a) item 10a
+    b) item 10b
+2) item 11
+    i) item 11a
+    i) item 11b
+3) item 12
 
-> Opcion C
 
-```
-(A) item 7
-(B) item 8
-(C) item 9
-```
-
-(A) item 7
-(B) item 8
-(C) item 9
 
 ## 2. Tipos de formatos generados para reportes con Rmarkdown <a name="formatos"></a>
 
