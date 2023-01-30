@@ -364,9 +364,9 @@ Redondear valores, 9.44 se redondea a `r round(9.44,1)`
 
 $$y = \mu + \sum_{i=1}^p \beta_i x_i + \epsilon$$
 
-* Agregar subindices para formulas (F~2~)
+* Agregar subindices para formulas (F~2~)  (CO~2~), con `html` CO<sub>2</sub>
 
-* Agregar super indice (F^2^), alternativamente con `html` E=MC<sup>2</sup>
+* Agregar super indice (F^2^) (E=MC^2^), alternativamente con `html` E=MC<sup>2</sup>
 
 ## 9. Agregar notas de ayuda <a name="note"></a>
 
