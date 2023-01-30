@@ -75,6 +75,7 @@ Con Rmarkdown puedes generar diversos archivos de salida como son:
 
 Dentro de los chunck:
 * Rcode
+
     `x= 'hello, world!'`
     
     `x`
