@@ -5,15 +5,16 @@ En este apartado estaremos siguiendo el material de Carpentry, capitulo 15 [Prod
 Contenido:
 
 - [1. Informacion basica que compone a un Rmarkdown](#basic)
-- [2. Tipos de formatos generados para reportes con Rmarkdown](#formatos)
-- [3. Diferentes lenguajes empleados en Rmarkdown](#lenguajes)
-- [4. Visualizacion grafica](#grafica)
-- [5. Generar tablas](#tablas)
-- [6. Agregar imagenes en un reporte](#imagen)
-- [7. Realizar calculos en un texto](#calculo)
-- [8. Lenguaje matematico](#mate)
-- [9. Agregar notas de ayuda](#note)
-- [10. Generar indice en el reporte](#indice)
+- [2. Organizacion de la informacion](#organizacion)
+- [3. Tipos de formatos generados para reportes con Rmarkdown](#formatos)
+- [4. Diferentes lenguajes empleados en Rmarkdown](#lenguajes)
+- [5. Visualizacion grafica](#grafica)
+- [6. Generar tablas](#tablas)
+- [7. Agregar imagenes en un reporte](#imagen)
+- [8. Realizar calculos en un texto](#calculo)
+- [9. Lenguaje matematico](#mate)
+- [10. Agregar notas de ayuda](#note)
+- [11. Generar indice en el reporte](#indice)
 
 ## Requisitos 💻
 
@@ -30,7 +31,7 @@ distribución MiKTeX, MacTeX, and TeX Live o TinyTex:
 `# tinytex::uninstall_tinytex()`
 
 
-## 1.- Informacion basica que compone a un Rmarkdown  <a name="basic"></a>
+## 1. Informacion basica que compone a un Rmarkdown  <a name="basic"></a>
 
 ### Archivo inicial
 
@@ -38,10 +39,10 @@ Para crear un archivo dar click en `File/New file/R markdown`. El archivo genera
 
 ```
 ---
-title: "Sesion de Rmarkdown"
+title: "Introduccion a Rmarkdown"
 author: "Evelia Coss"
 date: "2023-01-30"
-output: html_document 
+output: html_document
 ---
 ```
 
@@ -53,7 +54,7 @@ Ademas, se incluyen una serie de instrucciones entre la linea de comandos para o
 summary(cars)
 ```
 
-## 2.- Organizacion de la informacion
+## 2. Organizacion de la informacion <a name="organizacion"></a>
 
 ### Division de titulos
 
@@ -141,7 +142,7 @@ Puedes resaltar tu informacion colocando el simbolo `*` antes y despues del text
     i) item 11b
 3) item 12
 
-## 2. Tipos de formatos generados para reportes con Rmarkdown <a name="formatos"></a>
+## 3. Tipos de formatos generados para reportes con Rmarkdown <a name="formatos"></a>
 
 Con Rmarkdown puedes generar diversos archivos de salida como son:
 
@@ -154,7 +155,7 @@ Con Rmarkdown puedes generar diversos archivos de salida como son:
   - [Presentaciones](https://bookdown.org/yihui/rmarkdown/xaringan.html)
 * [Word](https://bookdown.org/yihui/rmarkdown/word-document.html)
 
-## 3. Diferentes lenguajes empleados en Rmarkdown <a name="lenguajes"></a>
+## 4. Diferentes lenguajes empleados en Rmarkdown <a name="lenguajes"></a>
 
 * R code 
 * Pandoc’s Markdown
@@ -180,7 +181,7 @@ Dentro de los chunck:
 * SQL
 * Stan
 
-## 4. Visualizacion grafica <a name="grafica"></a>
+## 5. Visualizacion grafica <a name="grafica"></a>
 
 ### Ejemplo que viene por default
 
@@ -238,7 +239,7 @@ Para ver las estadisticas de esta base de datos usamos `summary`:
 summary(pressure)
 ```
 
-## 5. Generar tablas <a name="tablas"></a>
+## 6. Generar tablas <a name="tablas"></a>
 
 ### Tabla simple
 
@@ -328,7 +329,7 @@ summary(pressure)
   </tbody>
 </table>
 
-## 6. Agregar imagenes en un reporte <a name="imagen"></a>
+## 7. Agregar imagenes en un reporte <a name="imagen"></a>
 
 Podemos anexar imagenes a nuestros archivos tomando figuras de internet como el siguiente ejemplo.
 
@@ -340,11 +341,11 @@ Podemos anexar imagenes a nuestros archivos tomando figuras de internet como el 
 
 Ademas, podemos anexar archivos contenidos en nuestra computadora:
 
-```{r}
+```
 knitr::include_graphics("lifeExp_plot.png")
 ```
 
-## 7. Realizar calculos en un texto <a name="calculo"></a>
+## 8. Realizar calculos en un texto <a name="calculo"></a>
 
 Podemos senalar en el texto que parte del mismo es un calculo matematico mediante el simbolo de comilla invertida (` `) en ambos extremos. Obteniendo algunos ejemplos como los siguientes.
 
@@ -358,7 +359,7 @@ Si 4^5 cuanto es? `r 4^5`
 
 Redondear valores, 9.44 se redondea a `r round(9.44,1)`
 
-## 8. Lenguaje matematico <a name="mate"></a>
+## 9. Lenguaje matematico <a name="mate"></a>
 
 * Agregar ecuacion matematica
 
@@ -368,7 +369,7 @@ $$y = \mu + \sum_{i=1}^p \beta_i x_i + \epsilon$$
 
 * Agregar super indice (F^2^) $E=MC^2$, alternativamente con `html` E=MC<sup>2</sup>
 
-## 9. Agregar notas de ayuda <a name="note"></a>
+## 10. Agregar notas de ayuda <a name="note"></a>
 
 Para dar color a tus reportes puede agregar notas en los mismos dependiendo del contenido de la informacion:
 
@@ -391,13 +392,15 @@ Red boxes (alert-danger)
 <b>Danger:</b> This alert box indicates a dangerous or potentially negative action.
 </div>
 
-## 10. Agregar citas o resaltar texto <a name="citas"></a>
+## 11. Agregar citas o resaltar texto <a name="citas"></a>
 
 ### Una sola frase
 
 ```
 > La belleza pierde su sentido cuando te rodea en exceso. 
 ```
+
+> La belleza pierde su sentido cuando te rodea en exceso. 
 
 ### Un parrafo completo
 
@@ -407,6 +410,10 @@ Red boxes (alert-danger)
 > Pag. 41. El jardin de las mariposas. Dot Hutchison.
 ```
 
+> La belleza pierde su sentido cuando te rodea en exceso.
+>
+> Pag. 41. El jardin de las mariposas. Dot Hutchison.
+
 ### Hacer mas compleja la cita
 
 ```
@@ -414,6 +421,10 @@ Red boxes (alert-danger)
 >
 >> La belleza depende de los ojos que la miran.
 ```
+
+> La belleza pierde su sentido cuando te rodea en exceso. 
+>
+>> La belleza depende de los ojos que la miran.
 
 ### Agregar elementos
 
@@ -427,26 +438,34 @@ Red boxes (alert-danger)
 >  *Todo* va de acuerdo a lo **planeado**.
 ```
 
-## 11. Generar indice en el reporte <a name="indice"></a>
+> #### Cosas por hacer:
+>
+> - Github de la clase de Rmarkdown.
+> - Github de la clase de RNA-Seq.
+> - Informacion de la pagina de JAGUAR.
+>
+>  *Todo* va de acuerdo a lo **planeado**.
+
+## 12. Generar indice en el reporte <a name="indice"></a>
 
 Para finalizar podemos agregarle un indice a nuestro reporte editando la parte superior.
 
  * Informacion incial
 ```
 ---
-title: "Sesion de Rmarkdown"
+title: "Introduccion a Rmarkdown"
 author: "Evelia Coss"
-date: "4/9/2022"
-output: html_document 
+date: "2023-01-30"
+output: html_document
 ---
 ```
 
 * Informacion modificada para agregar el indice
 
 ```
-title: "Sesion de Rmarkdown"
+title: “Introduccion a Rmarkdown”
 author: "Evelia Coss"
-date: "4/9/2022"
+date: "2023-01-30"
 output: 
   html_document:
     toc: yes
@@ -455,7 +474,10 @@ output:
     theme: cerulean
 ```
 
-`toc` es para indicar que vas a agregar un indice en el reporte, `toc_float` es para indicar si el indice va a ser flotante o no, si indicas `yes` el indice se localizara a la izquiera de la pantalla y la informacion se desplegara cuando se coloques sobre ella. `toc_depth` es para indicar el numero de subtitulos que puedes tener en el archivo y `theme` es la decoracion del archivo.
+* `toc` es para indicar que vas a agregar un indice en el reporte. 
+* `toc_float` es para indicar si el indice va a ser flotante o no, si indicas `yes` el indice se localizara a la izquiera de la pantalla y la informacion se desplegara cuando se coloques sobre ella. 
+* `toc_depth` es para indicar el numero de subtitulos que puedes tener en el archivo.
+* `theme` es la decoracion del archivo.
 
 Para mas temas puedes entrar al siguiente link: https://www.datadreaming.org/post/r-markdown-theme-gallery/
 
