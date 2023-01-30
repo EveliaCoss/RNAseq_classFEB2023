@@ -1,0 +1,371 @@
+---
+title: "Introduccion a Rmarkdown"
+author: "Evelia Coss"
+date: "2023-01-30"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 1. Informacion basica que compone a un Rmarkdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+
+## 2. Organizacion de la informacion
+
+
+### Division de titulos
+
+Los titulos se dividen por el simbolo `#`, de la siguiente manera:
+
+```
+# Genero Plantae (titulo principal)
+## Plantas Verdes (sub1)
+### Streptophyta (sub2)
+#### Plantas terrestres (sub3)
+##### Plantas vaculares (sub4)
+```
+
+### Letras en diferentes estilos
+
+Puedes resaltar tu informacion colocando el simbolo `*` antes y despues del texto: Ejemplo: *italica*, **negritas** y ***ambos tipos de estilo***.
+
+### Listas
+
+#### Simple (Una sola division):
+
+* one
+* two
+* three
+
+#### Compleja:
+
+* one
+* two
+    - 2a
+    - 2b
+* three
+    - 3a
+        + 3rd layer
+    - 2nd layer
+* 1st layer
+
+### Otro ejemplo:
+
+1) item 10
+    a) item 10a
+    b) item 10b
+2) item 11
+    i) item 11a
+    i) item 11b
+3) item 12
+
+
+## 3. Tipos de formatos generados para reportes con Rmarkdown
+
+
+Con Rmarkdown puedes generar diversos archivos de salida como son:
+
+* PDF
+  - [Tesis ejemplo 1](https://ourcodingclub.github.io/tutorials/rmarkdown-dissertation/)
+  - [Tesis ejemplo2](http://destio.us.es/calvo/memoriatfe/MemoriaTFE_PedroLuque_2017Nov_imprimir2caras.pdf) 
+  - [Curriculum vitae](https://elipapa.github.io/markdown-cv/) 
+* html
+  - [Pagina web](https://bookdown.org/yihui/rmarkdown/html-document.html#table-of-contents)
+  - [Presentaciones](https://bookdown.org/yihui/rmarkdown/xaringan.html)
+* [Word](https://bookdown.org/yihui/rmarkdown/word-document.html)
+
+
+## 4. Diferentes lenguajes empleados en Rmarkdown
+
+### Rcode
+
+```{r}
+x= 'hello, world!'
+x
+```
+
+### Bash
+
+```{bash}
+x=$(echo 'hello, world!')
+echo $x
+```
+
+
+## 5. Visualizacion grafica
+
+### Ejemplo que viene por default
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+### Ejemplo 2
+
+Agregar linea entre puntos:
+
+```{r}
+plot(pressure, type="l")
+```
+
+
+```{r}
+plot(pressure, type="l", main="My Graph", xlab="The x-axis", ylab="The y axis")
+```
+
+
+```{r}
+plot(pressure, # dataframe 
+    type="b", # Tipo de grafico
+    cex=2, # Tamano de los puntos 
+    pch = 0, # Forma del punto, valor de 0 a 25, el cero es un cuadrado
+    main="My Graph", # titulo
+    xlab="The x-axis", ylab="The y axis", # titulo en X y en Y
+    col="red") # color de las lineas y puntos
+    
+# type: 
+    # - "p" for points, 
+    # - "l" for lines, 
+    # - "b" for both, 
+    # - "c" for the lines part alone of "b",   
+    # - "o" for both ‘overplotted’,
+    # - "h" for ‘histogram’ like (or ‘high-density’) vertical lines,
+    # - "s" for stair steps,
+    # - "S" for other steps, see ‘Details’ below,
+    # - "n" for no plotting.
+```
+
+Guardar el grafico
+
+```{r, eval=FALSE}
+png(file="./pressure.png",  width=15, height=10, units="in", res=1200)
+
+plot(pressure, # dataframe 
+    type="b", # Tipo de grafico
+    cex=2, # Tamano de los puntos 
+    pch = 0, # Forma del punto, valor de 0 a 25, el cero es un cuadrado
+    main="My Graph", # titulo
+    xlab="The x-axis", ylab="The y axis", # titulo en X y en Y
+    col="red") # color de las lineas y puntos
+
+dev.off()
+```
+
+Para ver las otras opciones contenidas en la funcion `plot` puedes leer el [manual](https://www.rdocumentation.org/packages/graphics/versions/3.6.2/topics/plot).
+
+Si quieres ver las diferentes formas que puedes hacer en los puntos, puedes leer la [guia](http://www.sthda.com/english/wiki/r-plot-pch-symbols-the-different-point-shapes-available-in-r).
+
+Si quieres realizar otro tipo de grafica puedes visitar la [R graph gallery](https://r-graph-gallery.com/)
+
+### Visualizar el contenido del dataframe
+
+Si queremos analizar la informacion contenida en el dataframe `pressure` podemos emplear la funcion `head()`:
+
+
+```{r}
+head(pressure)
+```
+Este dataframe contiene dos columnas: `temperature` y `pressure`.
+
+Para ver las estadisticas de esta base de datos usamos `summary`:
+
+```{r}
+summary(pressure)
+```
+
+
+## 6. Generar tablas 
+
+### Tabla simple
+
+| Num | Header | Header2 | Header3 |
+|-----|--------|---------|---------|
+|  1  | first  | 1st     | One     |
+|  2  | second | 2nd     | Two     |
+|  3  | third  | 3rd     | Three   |
+
+### Tabla en formato html
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col"><center>Num</center></th>
+      <th scope="col"><center>Header</center></th>
+      <th scope="col"><center>Header2</center></th>
+      <th scope="col"><center>Header3</center></th>
+    </tr>
+  </thead>
+  <tbody>
+  </tr>
+    <tr class="table-light">
+      <th scope="row">1</th>
+      <td><center>first</center></td>
+      <td><center>1st</center></td>
+      <td><center>One</center></td>
+  </tr>
+   </tr>
+    <tr class="table-light">
+      <th scope="row">2</th>
+      <td><center>second</center></td>
+      <td><center>2nd</center></td>
+      <td><center>Two</center></td>
+  </tr>
+  </tr>
+    <tr class="table-light">
+      <th scope="row">3</th>
+      <td><center>third</center></td>
+      <td><center>3rd</center></td>
+      <td><center>Three</center></td>
+  </tr>
+  </tbody>
+</table>
+
+
+## 7. Agregar imagenes en un reporte 
+
+Podemos anexar imagenes a nuestros archivos tomando figuras de internet como el siguiente ejemplo.
+
+![The Carpentries Logo](https://carpentries.org/assets/img/TheCarpentries.svg)
+
+
+Ademas, podemos anexar archivos contenidos en nuestra computadora:
+
+
+```{r}
+knitr::include_graphics("pressure.png")
+```
+
+
+## 8. Realizar calculos en un texto 
+
+Podemos senalar en el texto que parte del mismo es un calculo matematico mediante el simbolo de comilla invertida (` `) en ambos extremos. Obteniendo algunos ejemplos como los siguientes.
+
+La suma de 4 mas 5 es `r 4+5`.
+
+La division de 4 entre 5 es `r 4/5`.
+
+La multiplicacion de 4 por 5 es `r 4*5`.
+
+Si 4^5 cuanto es? `r 4^5`
+
+Redondear valores, 9.44 se redondea a `r round(9.44,1)`
+
+
+## 9. Lenguaje matematico
+
+* Agregar ecuacion matematica
+
+$$y = \mu + \sum_{i=1}^p \beta_i x_i + \epsilon$$
+
+* Agregar subindices para formulas CO~2~, alternativamente con `html` CO<sub>2</sub>
+
+* Agregar super indice E=MC^2^ o $E=MC^2$, alternativamente con `html` E=MC<sup>2</sup>
+
+
+## 10. Agregar notas de ayuda
+
+Para dar color a tus reportes puede agregar notas en los mismos dependiendo del contenido de la informacion:
+
+Blue boxes (alert-info)
+<div class="alert alert-block alert-info">
+<b>Tip:</b> Use blue boxes (alert-info) for tips and notes.</div>
+
+Yellow boxes (alert-warning)
+<div class="alert alert-block alert-warning">
+<b>Example:</b> Use yellow boxes for examples that are not inside code cells, or use for mathematical formulas if needed. Typically also used to display warning messages.
+</div>
+
+Green boxes (alert-success)
+<div class="alert alert-block alert-success">
+<b>Success:</b> This alert box indicates a successful or positive action.
+</div>
+
+Red boxes (alert-danger)
+<div class="alert alert-block alert-danger">
+<b>Danger:</b> This alert box indicates a dangerous or potentially negative action.
+</div>
+
+
+## 11. Agregar citas o resaltar texto
+
+### Una sola frase
+
+> La belleza pierde su sentido cuando te rodea en exceso. 
+
+### Un parrafo completo
+
+> La belleza pierde su sentido cuando te rodea en exceso.
+>
+> Pag. 41. El jardin de las mariposas. Dot Hutchison.
+
+### Hacer mas compleja la cita
+
+> La belleza pierde su sentido cuando te rodea en exceso. 
+>
+>> La belleza depende de los ojos que la miran.
+
+### Agregar elementos
+
+> #### Cosas por hacer:
+>
+> - Github de la clase de Rmarkdown.
+> - Github de la clase de RNA-Seq.
+> - Informacion de la pagina de JAGUAR.
+>
+>  *Todo* va de acuerdo a lo **planeado**.
+
+## 12. Generar indice en el reporte
+
+Para finalizar podemos agregarle un indice a nuestro reporte editando la parte superior.
+
+ * Informacion incial
+ 
+> title: "Introduccion a Rmarkdown"
+>
+> author: "Evelia Coss"
+>
+> date: "2023-01-30"
+>
+> output: html_document
+
+* Informacion modificada para agregar el indice
+
+> title: “Introduccion a Rmarkdown”
+>
+> author: "Evelia Coss"
+>
+> date: “2023-01-30”
+>
+> output: 
+  > - html_document:
+  >
+  > -  **toc: yes**
+  >
+  > -  **toc_float: yes**
+  >
+  > -  **toc_depth: 6 **
+  >
+  > -  **theme: cerulean**
+
+* `toc` es para indicar que vas a agregar un indice en el reporte. 
+* `toc_float` es para indicar si el indice va a ser flotante o no, si indicas `yes` el indice se localizara a la izquiera de la pantalla y la informacion se desplegara cuando se coloques sobre ella. 
+* `toc_depth` es para indicar el numero de subtitulos que puedes tener en el archivo.
+* `theme` es la decoracion del archivo.
+
+Para mas temas puedes entrar al siguiente link: https://www.datadreaming.org/post/r-markdown-theme-gallery/
+
+
