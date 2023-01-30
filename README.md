@@ -6,7 +6,7 @@ Clases para los alumnos de Ciencias Genomicas de la UNAM dentro del programa Bio
 
 ## Introduccion a Rmarkdown
 
-Clase programada para el 9 de Febrero del 2023
+Clase programada para el 8 de Febrero del 2023
 
 ### Requisitos 💻
 
