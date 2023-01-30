@@ -27,11 +27,23 @@ tinytex::install_tinytex()
 
 - [bookdown: Authoring Books and Technical Documents with R Markdown](https://bookdown.org/yihui/bookdown/)
 
+- [bookdown: R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/)
+
 - [The Comprehensive LaTeX Symbol List](http://tug.ctan.org/info/symbols/comprehensive/symbols-a4.pdf)
 
 - [Create Awesome LaTeX Table with knitr::kable and KableExtra](https://haozhu233.github.io/kableExtra/awesome_table_in_pdf.pdf)
 
-- [Cpitulo 15 Software Carpentry](https://swcarpentry.github.io/r-novice-gapminder/15-knitr-markdown/index.html)
+- [Capitulo 15 Producing Reports With knitr- Software Carpentry](https://swcarpentry.github.io/r-novice-gapminder/15-knitr-markdown/index.html)
+
+- [Pandoc's Markdown](https://pandoc.org/MANUAL.html#pandocs-markdown)
+
+- [RMarkdown manual](https://rmarkdown.rstudio.com/lesson-1.html)
+
+- [Basic Syntax](https://www.markdownguide.org/basic-syntax/)
+
+- [Apuntes sobre Markdown](https://support.squarespace.com/hc/es/articles/206543587-Apuntes-sobre-Markdown)
+
+- [Markdown Basics](http://www.ece.ualberta.ca/~terheide/rmarkdown-how-to/markdown.html)
 
 ----------------------------------
 ## Expresion diferencial
