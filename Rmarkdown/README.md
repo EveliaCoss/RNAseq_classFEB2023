@@ -220,6 +220,8 @@ Para ver las otras opciones contenidas en la funcion `plot` puedes leer el [manu
 
 Si quieres ver las diferentes formas que puedes hacer en los puntos, puedes leer la [guia](http://www.sthda.com/english/wiki/r-plot-pch-symbols-the-different-point-shapes-available-in-r).
 
+Si quieres realizar otro tipo de grafica puedes visitar la [R graph gallery](https://r-graph-gallery.com/)
+
 ### Visualizar el contenido del dataframe
 
 Si queremos analizar la informacion contenida en el dataframe `pressure` podemos emplear la funcion `head()`:
@@ -364,7 +366,7 @@ $$y = \mu + \sum_{i=1}^p \beta_i x_i + \epsilon$$
 
 * Agregar subindices para formulas (F~2~)
 
-* Agregar super indice (F^2^)
+* Agregar super indice (F^2^), alternativamente con `html` E=MC<sup>2</sup>
 
 ## 9. Agregar notas de ayuda <a name="note"></a>
 
@@ -389,7 +391,43 @@ Red boxes (alert-danger)
 <b>Danger:</b> This alert box indicates a dangerous or potentially negative action.
 </div>
 
-## 10. Generar indice en el reporte <a name="indice"></a>
+## 10. Agregar citas o resaltar texto <a name="citas"></a>
+
+### Una sola frase
+
+```
+> La belleza pierde su sentido cuando te rodea en exceso. 
+```
+
+### Un parrafo completo
+
+```
+> La belleza pierde su sentido cuando te rodea en exceso.
+>
+> Pag. 41. El jardin de las mariposas. Dot Hutchison.
+```
+
+### Hacer mas compleja la cita
+
+```
+> La belleza pierde su sentido cuando te rodea en exceso. 
+>
+>> La belleza depende de los ojos que la miran.
+```
+
+### Agregar elementos
+
+```
+> #### Cosas por hacer:
+>
+> - Github de la clase de Rmarkdown.
+> - Github de la clase de RNA-Seq.
+> - Informacion de la pagina de JAGUAR.
+>
+>  *Todo* va de acuerdo a lo **planeado**.
+```
+
+## 11. Generar indice en el reporte <a name="indice"></a>
 
 Para finalizar podemos agregarle un indice a nuestro reporte editando la parte superior.
 
@@ -432,3 +470,7 @@ Para mas temas puedes entrar al siguiente link: https://www.datadreaming.org/pos
 - [Cpitulo 15 Software Carpentry](https://swcarpentry.github.io/r-novice-gapminder/15-knitr-markdown/index.html)
 
 - [Pandoc's Markdown](https://pandoc.org/MANUAL.html#pandocs-markdown)
+
+- [Basic Syntax](https://www.markdownguide.org/basic-syntax/)
+
+
