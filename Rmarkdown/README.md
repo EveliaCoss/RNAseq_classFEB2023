@@ -141,8 +141,6 @@ Puedes resaltar tu informacion colocando el simbolo `*` antes y despues del text
     i) item 11b
 3) item 12
 
-
-
 ## 2. Tipos de formatos generados para reportes con Rmarkdown <a name="formatos"></a>
 
 Con Rmarkdown puedes generar diversos archivos de salida como son:
@@ -184,7 +182,78 @@ Dentro de los chunck:
 
 ## 4. Visualizacion grafica <a name="grafica"></a>
 
+### Ejemplo que viene por default
+
+En el ejemplo generado con Rmarkdown, presenta el siguiente codigo:
+
+```
+plot(pressure)
+```  
+
+En la parte superior del chunck, se tiene `echo =FALSE` lo cual oculta el codigo del chunck.
+
+### Ejemplo 2
+
+```
+plot(pressure, # dataframe 
+    type="b", # Tipo de grafico
+    cex=2, # Tamano de los puntos 
+    pch = 0, # Forma del punto, valor de 0 a 25, el cero es un cuadrado
+    main="My Graph", # titulo
+    xlab="The x-axis", ylab="The y axis", # titulo en X y en Y
+    col="red") # color de las lineas y puntos
+    
+# type: 
+    # - "p" for points, 
+    # - "l" for lines, 
+    # - "b" for both, 
+    # - "c" for the lines part alone of "b",   
+    # - "o" for both ‘overplotted’,
+    # - "h" for ‘histogram’ like (or ‘high-density’) vertical lines,
+    # - "s" for stair steps,
+    # - "S" for other steps, see ‘Details’ below,
+    # - "n" for no plotting.
+
+```
+
+Para ver las otras opciones contenidas en la funcion `plot` puedes leer el [manual](https://www.rdocumentation.org/packages/graphics/versions/3.6.2/topics/plot).
+
+Si quieres ver las diferentes formas que puedes hacer en los puntos, puedes leer la [guia](http://www.sthda.com/english/wiki/r-plot-pch-symbols-the-different-point-shapes-available-in-r).
+
+### Visualizar el contenido del dataframe
+
+Si queremos analizar la informacion contenida en el dataframe `pressure` podemos emplear la funcion `head()`:
+
+```
+head(pressure)
+```
+
+Este dataframe contiene dos columnas: `temperature` y `pressure`.
+
+Para ver las estadisticas de esta base de datos usamos `summary`:
+
+```
+summary(pressure)
+```
+
 ## 5. Generar tablas <a name="tablas"></a>
+
+### Tabla simple
+
+```
+| Num | Header | Header2 | Header3 |
+|-----|--------|---------|---------|
+|  1  | first  | 1st     | One     |
+|  2  | second | 2nd     | Two     |
+|  3  | third  | 3rd     | Three   |
+```
+
+
+
+
+html
+
+
 ## 6. Agregar imagenes en un reporte <a name="imagen"></a>
 ## 7. Realizar calculos en un texto <a name="calculo"></a>
 
