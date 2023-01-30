@@ -53,6 +53,30 @@ Ademas, se incluyen una serie de instrucciones entre la linea de comandos para o
 summary(cars)
 ```
 
+## 2.- Organizacion de la informacion
+
+### Division de titulos
+
+Los titulos se dividen por el simbolo `#`, de la siguiente manera:
+
+```
+# Genero Plantae (titulo principal)
+## Plantas Verdes (sub1)
+### Streptophyta (sub2)
+#### Plantas terrestres (sub3)
+##### Plantas vaculares (sub4)
+```
+
+### Letras en diferentes formatos
+
+Puedes resaltar tu informacion colocando el simbolo `*` antes y despues del texto: Ejemplo: *italica*, **negritas** y ***ambos tipos de estilo***.
+
+```
+*italica*
+**negritas**
+***italica + negritas***
+```
+
 ## 2. Tipos de formatos generados para reportes con Rmarkdown <a name="formatos"></a>
 
 Con Rmarkdown puedes generar diversos archivos de salida como son:
