@@ -219,6 +219,21 @@ plot(pressure, # dataframe
     # - "n" for no plotting.
 
 ```
+Guardar el grafico
+
+```{r, eval=FALSE}
+png(file="./pressure.png",  width=15, height=10, units="in", res=1200)
+
+plot(pressure, # dataframe 
+    type="b", # Tipo de grafico
+    cex=2, # Tamano de los puntos 
+    pch = 0, # Forma del punto, valor de 0 a 25, el cero es un cuadrado
+    main="My Graph", # titulo
+    xlab="The x-axis", ylab="The y axis", # titulo en X y en Y
+    col="red") # color de las lineas y puntos
+
+dev.off()
+```
 
 Para ver las otras opciones contenidas en la funcion `plot` puedes leer el [manual](https://www.rdocumentation.org/packages/graphics/versions/3.6.2/topics/plot).
 
@@ -345,7 +360,7 @@ Podemos anexar imagenes a nuestros archivos tomando figuras de internet como el 
 Ademas, podemos anexar archivos contenidos en nuestra computadora:
 
 ```
-knitr::include_graphics("lifeExp_plot.png")
+knitr::include_graphics("pressure.png")
 ```
 
 ## 8. Realizar calculos en un texto <a name="calculo"></a>
