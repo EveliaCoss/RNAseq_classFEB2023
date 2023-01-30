@@ -14,7 +14,8 @@ Contenido:
 - [8. Realizar calculos en un texto](#calculo)
 - [9. Lenguaje matematico](#mate)
 - [10. Agregar notas de ayuda](#note)
-- [11. Generar indice en el reporte](#indice)
+- [11. Agregar citas o resaltar texto](#citas)
+- [12. Generar indice en el reporte](#indice)
 
 ## Requisitos 💻
 
@@ -367,9 +368,9 @@ Redondear valores, 9.44 se redondea a `r round(9.44,1)`
 
 $$y = \mu + \sum_{i=1}^p \beta_i x_i + \epsilon$$
 
-* Agregar subindices para formulas (F~2~)  (CO~2~), con `html` CO<sub>2</sub>
+* Agregar subindices para formulas CO~2~, alternativamente con `html` CO<sub>2</sub>
 
-* Agregar super indice (F^2^) $E=MC^2$, alternativamente con `html` E=MC<sup>2</sup>
+* Agregar super indice E=MC^2^ o $E=MC^2$, alternativamente con `html` E=MC<sup>2</sup>
 
 ## 10. Agregar notas de ayuda <a name="note"></a>
 
