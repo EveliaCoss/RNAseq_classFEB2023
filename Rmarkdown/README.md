@@ -67,7 +67,7 @@ Los titulos se dividen por el simbolo `#`, de la siguiente manera:
 ##### Plantas vaculares (sub4)
 ```
 
-### Letras en diferentes formatos
+### Letras en diferentes estilos
 
 Puedes resaltar tu informacion colocando el simbolo `*` antes y despues del texto: Ejemplo: *italica*, **negritas** y ***ambos tipos de estilo***.
 
@@ -76,6 +76,47 @@ Puedes resaltar tu informacion colocando el simbolo `*` antes y despues del text
 **negritas**
 ***italica + negritas***
 ```
+
+### Listas
+
+Simple (Una sola division):
+
+```
+* one
+* two
+* three
+```
+
+* one
+* two
+* three
+
+Compleja:
+
+```
+* one
+* two
+    - 2a
+    - 2b
+* three
+    - 3a
+        + 3rd layer
+    - 2nd layer
+* 1st layer
+```
+
+* one
+* two
+    - 2a
+    - 2b
+* three
+    - 3a
+        + 3rd layer
+    - 2nd layer
+* 1st layer
+
+
+
 
 ## 2. Tipos de formatos generados para reportes con Rmarkdown <a name="formatos"></a>
 
