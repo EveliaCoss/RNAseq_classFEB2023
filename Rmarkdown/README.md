@@ -78,12 +78,14 @@ Dentro de los chunck:
 * Bash
 
     `x = 'hello, world!'`
+    
     `echo x`
     
 * D3
 * Python 
 
     `x = 'hello, world!'`
+    
     `print(x.split(' '))`
     
 * Rcpp
