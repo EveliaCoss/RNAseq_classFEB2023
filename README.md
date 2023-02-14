@@ -6,7 +6,7 @@ Clases para los alumnos de Ciencias Genomicas de la UNAM dentro del programa Bio
 
 ## Introduccion a Rmarkdown
 
-Clase programada para el 8 de Febrero del 2023
+Clase programada para el 8 de Febrero del 2023.
 
 ### Requisitos 💻
 
@@ -50,10 +50,79 @@ tinytex::install_tinytex()
 ----------------------------------
 ## Expresion diferencial
 
-Clases programadas para la semana del 21 al 24 de Febrero del 2023
+Clases programadas para la semana del 21 al 24 de Febrero del 2023.
 
 Instalacion de [UBUNTU en Windows](https://learn.microsoft.com/es-es/windows/wsl/install?redirectedfrom=MSDN)
 
 ### Requisitos 💻
+
+Programas
+
+* kallisto
+* R > 4.0
+* RStudio
+* Paquetes de R con Bioconductor
+  - Biconductor
+  - DESeq2
+  - edgeR
+  - tximport
+
+```
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install(version = "3.13")
+
+paquetes = c("DESeq2", "tximport")
+BiocManager::install(paquetes)
+```
+
+* Paquetes de R
+  - wordcloud (opcional)
+  - RColorBrewer (opcional)
+  - tidyverse
+  - dplyr, stringr
+
+```
+install.packages("tidyverse")
+installed.packages("wordcloud")
+install.packages("RColorBrewer")
+```
+
+### Agenda
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col"><center>Día</center></th>
+      <th scope="col"><center>Temas</center></th>
+      <th scope="col"><center>Link a presentación</center></th>
+      <th scope="col"><center>Práctica</center></th>
+    </tr>
+  </thead>
+  <tbody>
+  </tr>
+    <tr class="table-light">
+      <th scope="row">1</th>
+      <td><center>first</center></td>
+      <td><center>1st</center></td>
+      <td><center>One</center></td>
+  </tr>
+   </tr>
+    <tr class="table-light">
+      <th scope="row">2</th>
+      <td><center>second</center></td>
+      <td><center>2nd</center></td>
+      <td><center>Two</center></td>
+  </tr>
+  </tr>
+    <tr class="table-light">
+      <th scope="row">3</th>
+      <td><center>third</center></td>
+      <td><center>3rd</center></td>
+      <td><center>Three</center></td>
+  </tr>
+  </tbody>
+</table>
+
 
 ### Referencias 📚
