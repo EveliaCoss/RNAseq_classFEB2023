@@ -48,11 +48,11 @@ tinytex::install_tinytex()
 - [Markdown Basics](http://www.ece.ualberta.ca/~terheide/rmarkdown-how-to/markdown.html)
 
 ----------------------------------
-## Expresion diferencial
+## Expresión diferencial
 
 Clases programadas para la semana del 21 al 24 de Febrero del 2023.
 
-Instalacion de [UBUNTU en Windows](https://learn.microsoft.com/es-es/windows/wsl/install?redirectedfrom=MSDN)
+Instalación de [UBUNTU en Windows](https://learn.microsoft.com/es-es/windows/wsl/install?redirectedfrom=MSDN)
 
 ### Requisitos 💻
 
