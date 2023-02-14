@@ -10,11 +10,13 @@ Clase programada para el 8 de Febrero del 2023
 
 ### Requisitos 💻
 
-*Antes de la clase debes instalar Rmarkdowm*, este proceso toma tiempo.
+*Antes de la clase debes instalar Rmarkdowm* en Rstudio, este proceso toma tiempo.
 
 ```
 install.packages("rmarkdown")
 ```
+
+Si no tienes [Rstudio](https://posit.co/download/rstudio-desktop/) debes instalarlo y su version de R mas actual. 
 
 * Instalar LaTeX: Si ya tienen alguna versión de Latex, no hacer nada, Si no tienen instalado Latex, entonces instalar alguna
 distribución MiKTeX, MacTeX, and TeX Live o TinyTex:
