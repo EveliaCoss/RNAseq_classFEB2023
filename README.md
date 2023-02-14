@@ -68,11 +68,13 @@ Programas
   - tximport
 
 ```
-if (!requireNamespace("BiocManager", quietly = TRUE))
+# Instalar Bioconductor
+if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
-BiocManager::install(version = "3.13")
+BiocManager::install(version = "3.16")
 
-paquetes = c("DESeq2", "tximport")
+# Paquetes / librerias
+paquetes = c("DESeq2", "tximport", "edgeR")
 BiocManager::install(paquetes)
 ```
 
@@ -86,6 +88,8 @@ BiocManager::install(paquetes)
 install.packages("tidyverse")
 installed.packages("wordcloud")
 install.packages("RColorBrewer")
+install.packages("dplyr")
+install.packages("stringr")
 ```
 
 ### Agenda
