@@ -104,10 +104,10 @@ install.packages("stringr")
   <tbody>
   </tr>
     <tr class="table-light">
-      <th scope="row">1</th>
-      <td><center>first</center></td>
-      <td><center>1st</center></td>
-      <td><center>One</center></td>
+      <th scope="row">Aspectos generales de RNA-Seq</th>
+      <td><center>Diversos pipeline para Alineamiento, ensamblaje y conteo</center></td>
+      <td><center>Importar datos en R, Normalización y Corrección por batch / DEG con DESeq2 effect</center></td>
+      <td><center>DEG con edgeR / Análisis funcional </center></td>
   </tr>
    </tr>
     <tr class="table-light">
