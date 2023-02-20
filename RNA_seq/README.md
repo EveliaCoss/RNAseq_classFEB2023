@@ -20,7 +20,7 @@ ls
 Desgloce de carpetas:
 |-Arabidopsis_thaliana/       # PRJNA821620
 |-COVID_virus/                # PRJNA858106
-|-Drosophila_melanogaster/    # PRJNA842067
+|-Athaliana_phosphate/        # PRJNA87017
 |-Homo_sapiens/               # PRJNA826506
 |-adapters
     |- TruSeq3-PE.fa          # adaptadores para paired-end
@@ -52,7 +52,7 @@ Para el reporte en MultiQC:
 
 ```
 module load multiqc/1.5
-multiQC ./FastQC_rawData
+multiqc ./FastQC_rawData
 ```
 
 ### 2) Limpieza de adaptadores
