@@ -37,7 +37,7 @@ Vamos a hacer buenas practicas de bioinformatica, acomoda tu proyecto de la sigu
   |- data/                    # raw_data (fastq.gz)
   |- FastQC_out/              # Salida del analisis de FastQC
   
- # Tipo: mkdir FastQC_out
+ # Tipo: mkdir FastQC_rawData
 ```
 
 Posteriormente, vamos a iniciar el analisis de calidad de las lecturas crudas o sin procesar (raw data):
