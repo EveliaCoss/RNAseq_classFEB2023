@@ -105,20 +105,27 @@ install.packages("stringr")
   </tr>
     <tr class="table-light">
       <th scope="row">Aspectos generales de RNA-Seq</th>
-      <td><center>Diversos pipeline para Alineamiento, ensamblaje y conteo</center></td>
-      <td><center>Importar datos en R, Normalización y Corrección por batch / DEG con DESeq2 effect</center></td>
+      <td><center>2</center></td>
+      <td><center>3</center></td>
       <td><center>DEG con edgeR / Análisis funcional </center></td>
   </tr>
    </tr>
     <tr class="table-light">
-      <th scope="row">2</th>
+      <th scope="row">Diversos pipeline para Alineamiento, ensamblaje y conteo</th>
       <td><center>second</center></td>
       <td><center>2nd</center></td>
       <td><center>Two</center></td>
   </tr>
   </tr>
     <tr class="table-light">
-      <th scope="row">3</th>
+      <th scope="row">Importar datos en R, Normalización y Corrección por batch / DEG con DESeq2</th>
+      <td><center>third</center></td>
+      <td><center>3rd</center></td>
+      <td><center>Three</center></td>
+  </tr>
+    </tr>
+    <tr class="table-light">
+      <th scope="row">Importar datos en R, Normalización y Corrección por batch / DEG con DESeq2</th>
       <td><center>third</center></td>
       <td><center>3rd</center></td>
       <td><center>Three</center></td>
