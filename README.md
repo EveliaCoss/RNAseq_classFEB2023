@@ -79,14 +79,12 @@ BiocManager::install(paquetes)
 ```
 
 * Paquetes de R
-  - wordcloud (opcional)
   - RColorBrewer (opcional)
   - tidyverse
   - dplyr, stringr
 
 ```
 install.packages("tidyverse")
-installed.packages("wordcloud")
 install.packages("RColorBrewer")
 install.packages("dplyr")
 install.packages("stringr")
