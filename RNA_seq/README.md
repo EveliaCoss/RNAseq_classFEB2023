@@ -19,10 +19,10 @@ ls
 
 ```
 Desgloce de carpetas:
-|-Athaliana_Fe_def/           # PRJNA256121
-|-Athaliana_phosphate/        # PRJNA821620
-|-COVID_virus/                # PRJNA858106
-|-Homo_sapiens/               # PRJNA826506
+|-Athaliana_Fe_def/           # PRJNA256121 ---> Proyecto 1
+|-Athaliana_phosphate/        # PRJNA821620 ---> Proyecto 2
+|-COVID_virus/                # PRJNA858106 ---> Proyecto 3
+|-Homo_sapiens/               # PRJNA826506 ---> Proyecto 4
 |-adapters
     |- TruSeq3-PE.fa          # adaptadores para paired-end
     |- TruSeq-SE.fa           # adaptadores para single-end
@@ -30,6 +30,114 @@ Desgloce de carpetas:
 |-SRAData_dow.sh              # Descarga de SRA
 |-SRA_run.sge                 # Mandar como job al cluster
 ```
+### TAREA:
+
+- 1) Copiar lo archivos SRAData_dow.sh y SRA_run.sge en tu carpeta (proyecto).
+
+```
+# /mnt/Timina/bioinfoII/rnaseq/BioProject_2023/rawData
+cp SRAData_dow.sh  Athaliana_Fe_def
+cp SRA_run.sge Athaliana_Fe_def
+```
+
+- 2) Editar el archivo TXT contenido en tu carpeta, agrega cada SRA que falta de tu PRJNA (bioProject). *TIP:* cada SRA va en cada renglon.
+
+```
+cd Athaliana_Fe_def
+
+# Si vemos que contiene el archivo TX, vemos que solo hay 2 SRA
+cat ./Athaliana_Fe_def/Athaliana_fastq.txt
+SRR1524946
+SRR1524938
+
+# Falta agregar los demas en cada linea o reglon.
+nano Athaliana_fastq.txt
+```
+
+- 3) Edita el archivo.sh para que se ejecute en tu carpeta y guarde la informacion.
+
+```
+cat SRAData_dow.sh
+#!/bin/bash
+
+# Descarga de datos
+# PARTE 1.- Descargar SRA
+# PARTE 2.- Cambio de SRA a Fastq
+# USAGE= ./SRAData_dow.sh
+# sed -i 's/\r//' SRAData_dow.sh
+
+# AUTHOR: Evelia Lorena Coss Navarrete
+# https://github.com/EveliaCoss
+
+# Tip: Cambia las direcciones para cada proyecto
+
+# PARTE 1.- Descargar SRA
+prefetch --option-file ./Athaliana_Fe_def/Athaliana_fastq.txt
+
+# PARTE 2.- Cambio de SRA a Fastq
+fastq-dump --gzip --skip-technical --dumpbase --split-3 --clip --outdir ./Athaliana_Fe_def/data/ ./Athaliana_Fe_def/data/SRR*/*.sra
+```
+
+Debes editar : ./Athaliana_Fe_def/Athaliana_fastq.txt en prefetch --option-file ./Athaliana_Fe_def/Athaliana_fastq.txt para que sea en tu carpeta.
+
+```
+# Si estoy dentro de la carpeta entonces:
+cd Athaliana_Fe_def
+
+# Modificacion 1
+prefetch --option-file ./Athaliana_fastq.txt
+
+# Modificacion 2
+fastq-dump --gzip --skip-technical --dumpbase --split-3 --clip --outdir ./data/ ./data/SRR*/*.sra
+```
+
+- 4) Edita el archivo.sge para que puedas mandar el job de acuerdo a lo que necesitas.
+
+```
+cat SRA_run.sge
+#!/bin/bash
+#
+# Use Current working directory
+#$ -cwd
+#
+# Join stdout and stderr
+#$ -j n
+#
+# Run job through bash shell
+#$ -S /bin/bash
+#
+# You can edit the script since this line
+#
+# Your job name
+#$ -N RawData_SRA
+#
+# Send an email after the job has finished
+#$ -m e
+#$ -M ccc@gmail.com
+#
+#
+# If modules are needed, source modules environment (Do not delete the next line):
+. /etc/profile.d/modules.sh
+#
+# Add any modules you might require:
+module load sra/3.0.0
+#
+# Write your commands in the next line
+./SRAData_dow.sh
+```
+
+Agrega tu email para que te avise cuando termine: #$ -M ccc@gmail.com
+
+NOTA: necesitas mas modulos debes agregarlos en el archivo.sge, si cambias el script tambien debes editar ese archivo.
+
+- 5) Descarga los archivos SRA.
+
+```
+# no este en qlogin, tienes que estar en root
+qsub SRA_run.sge
+```
+
+### Continuamos con la practica 
 
 Vamos a hacer buenas practicas de bioinformatica, acomoda tu proyecto de la siguiente manera:
 
