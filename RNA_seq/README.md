@@ -45,7 +45,7 @@ Posteriormente, vamos a iniciar el analisis de calidad de las lecturas crudas o 
 ```
 # cargar module FastQC
 module load fastqc/0.11.3
-fastqc ./data/SRR*/*.fastq.gz -o ./FastQC_rawData
+fastqc ./data/*.fastq.gz -o ./FastQC_rawData
 ```
 
 Para el reporte en MultiQC:
@@ -61,32 +61,63 @@ multiqc ./FastQC_rawData
 module load trimmomatic/0.33
 mkdir data_trimmed
 
+# Crear symlink
+ln -s /mnt/Timina/bioinfoII/rnaseq/BioProject_2023/rawData/adapters/TruSeq3-PE.fa .
+ln -s /mnt/Timina/bioinfoII/rnaseq/BioProject_2023/rawData/adapters/TruSeq3-SE.fa .
+
 # single-end
 cd /mnt/Citosina/amedina/ssalazar/meta/RNA2/fastq_files/SRP111941/fastq_files
 mkdir /mnt/Citosina/amedina/ssalazar/meta/RNA2/fastq_files/SRP111941/TRIM_results
 for i in *;
 do echo
-trimmomatic SE -threads 2 -phred33 $i ../TRIM_results/"${i%.fastq}_trimmed.fq.gz" ILLUMINACLIP:../Illumina_Adapters_SE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:20 MINLEN:35
+trimmomatic SE -threads 2 -phred33 $i ../TRIM_results/"${i%.fastq}_trimmed.fq.gz" ILLUMINACLIP:/mnt/Timina/bioinfoII/rnaseq/BioProject_2023/rawData/adapters/TruSeq-SE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:20 MINLEN:35
 done
 
 # paired-end
 mkdir /mnt/Citosina/amedina/ssalazar/meta/RNA2/fastq_files/SRP322015/TRIM_results
-cd /mnt/Citosina/amedina/ssalazar/meta/RNA2/fastq_files/SRP322015/fastq_files
+cd data
 for i in *_1.fastq.gz;
 do echo
 trimmomatic PE -threads 8 -phred33 $i "${i%_1.fastq.gz}_2.fastq.gz" \
-../TRIM_results/"${i%_1.fastq.gz}_1_trimmed.fastq.gz" ../TRIM_results/"${i%_1.fastq.gz}_1_unpaired.fastq.gz" \
-../TRIM_results/"${i%_1.fastq.gz}_2_trimmed.fastq.gz" ../TRIM_results/"${i%_1.fastq.gz}_2_unpaired.fastq.gz" \
-ILLUMINACLIP:/mnt/Citosina/amedina/ssalazar/meta/RNA2/fastq_files/adapters-paired.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:20 MINLEN:66
+../data_trimmed/"${i%_1.fastq.gz}_1_trimmed.fastq.gz" ../data_trimmed/"${i%_1.fastq.gz}_1_unpaired.fastq.gz" \
+../data_trimmed/"${i%_1.fastq.gz}_2_trimmed.fastq.gz" ../data_trimmed/"${i%_1.fastq.gz}_2_unpaired.fastq.gz" \
+ILLUMINACLIP:TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:5:20 MINLEN:60
 done
 
-
-cd ../..
+# Regresar
+cd ../
 ```
+
+Notas:
+
+• Remove adapters (ILLUMINACLIP:TruSeq3-PE.fa:2:30:10)
+• Remove leading low quality or N bases (below quality 3) (LEADING:3)
+• Remove trailing low quality or N bases (below quality 3) (TRAILING:3)
+• Scan the read with a 4-base wide sliding window, cutting when the average quality per base drops below 15 (SLIDINGWINDOW:4:15)
+• Drop reads below the 36 bases long (MINLEN:36)
+
+Description
+• ILLUMINACLIP: Cut adapter and other illumina-specific sequences from the read.
+• SLIDINGWINDOW: Perform a sliding window trimming, cutting once the average quality within the window falls below a threshold.
+• LEADING: Cut bases off the start of a read, if below a threshold quality
+• TRAILING: Cut bases off the end of a read, if below a threshold quality
+• CROP: Cut the read to a specified length
+• HEADCROP: Cut the specified number of bases from the start of the read
+• MINLEN: Drop the read if it is below a specified length
+• TOPHRED33: Convert quality scores to Phred-33
+• TOPHRED64: Convert quality scores to Phred-64
+
+Nota = ASCII_33 contiene los simbolos # y $ mientras que ASCII_64 no los contiene.
 
 ### 3) Analisis de calidad de las lecturas sin adaptadores
 
+```
+mkdir FastQC_trimmed
+fastqc ./data_trimmed/*.fastq.gz -o ./FastQC_trimmed
 
+# Reporte en MultiQC
+multiqc ./FastQC_trimmed
+```
 
 
 
