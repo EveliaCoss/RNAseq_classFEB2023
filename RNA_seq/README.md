@@ -1,12 +1,12 @@
 # Contenido:
 
-- Practica 1
-- Practica 2
-- Practica 3
+- [Practica 1 - Analisis de calidad de las lecturas y limpieza de adaptadores](#practica1) - 21 Feb 2023
+- [Practica 2](#practica2) - 22 Feb 2023
+- [Practica 3](#practica3) - 21 Feb 2023
+- [Practica 4](#practica4) - 21 Feb 2023
+- [Practica 5](#practica5) - 21 Feb 2023
 
-
-
-## Practica 1 - Analisis de calidad de las lecturas y limpieza de adaptadores
+## Practica 1 - Analisis de calidad de las lecturas y limpieza de adaptadores  <a name="practica1"></a>
 
 ### 1) Analisis de calidad de las lecturas crudas (raw data)
 
@@ -81,7 +81,7 @@ do echo
 trimmomatic PE -threads 8 -phred33 $i "${i%_1.fastq.gz}_2.fastq.gz" \
 ../data_trimmed/"${i%_1.fastq.gz}_1_trimmed.fastq.gz" ../data_trimmed/"${i%_1.fastq.gz}_1_unpaired.fastq.gz" \
 ../data_trimmed/"${i%_1.fastq.gz}_2_trimmed.fastq.gz" ../data_trimmed/"${i%_1.fastq.gz}_2_unpaired.fastq.gz" \
-ILLUMINACLIP:TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:5:20 MINLEN:60
+ILLUMINACLIP:../TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:5:20 MINLEN:60
 done
 
 # Regresar
@@ -120,10 +120,10 @@ fastqc ./data_trimmed/*.fastq.gz -o ./FastQC_trimmed
 multiqc ./FastQC_trimmed
 ```
 
-
-
-
-
+## Practica 2 - x  <a name="practica2"></a>
+## Practica 3 - x  <a name="practica3"></a>
+## Practica 4 - x  <a name="practica4"></a>
+## Practica 5 - x  <a name="practica5"></a>
 
 
 
