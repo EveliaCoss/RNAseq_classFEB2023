@@ -120,6 +120,12 @@ fastqc ./data_trimmed/*.fastq.gz -o ./FastQC_trimmed
 multiqc ./FastQC_trimmed
 ```
 
+### 4) Descarga de los archivos en tu computadora
+
+```
+rsync -rptuvl ecoss@dna.liigh.unam.mx:/mnt/Timina/bioinfoII/rnaseq/BioProject_2023/rawData/COVID_virus/data/multiqc_report.html . 
+```
+
 ## Practica 2 - x  <a name="practica2"></a>
 ## Practica 3 - x  <a name="practica3"></a>
 ## Practica 4 - x  <a name="practica4"></a>
