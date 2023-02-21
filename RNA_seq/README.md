@@ -11,6 +11,7 @@
 ### 1) Analisis de calidad de las lecturas crudas (raw data)
 
 ```
+screen -S data # guardar una sesion en screen
 qlogin
 cd /mnt/Timina/bioinfoII/rnaseq/BioProject_2023/rawData
 ls
