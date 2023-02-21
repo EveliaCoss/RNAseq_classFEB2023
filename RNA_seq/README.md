@@ -90,22 +90,23 @@ cd ../
 
 Notas:
 
-• Remove adapters (ILLUMINACLIP:TruSeq3-PE.fa:2:30:10)
-• Remove leading low quality or N bases (below quality 3) (LEADING:3)
-• Remove trailing low quality or N bases (below quality 3) (TRAILING:3)
-• Scan the read with a 4-base wide sliding window, cutting when the average quality per base drops below 15 (SLIDINGWINDOW:4:15)
-• Drop reads below the 36 bases long (MINLEN:36)
+- Remove adapters (ILLUMINACLIP:TruSeq3-PE.fa:2:30:10)
+- Remove leading low quality or N bases (below quality 3) (LEADING:3)
+- Remove trailing low quality or N bases (below quality 3) (TRAILING:3)
+- Scan the read with a 4-base wide sliding window, cutting when the average quality per base drops below 15 (SLIDINGWINDOW:4:15)
+- Drop reads below the 36 bases long (MINLEN:36)
 
-Description
-• ILLUMINACLIP: Cut adapter and other illumina-specific sequences from the read.
-• SLIDINGWINDOW: Perform a sliding window trimming, cutting once the average quality within the window falls below a threshold.
-• LEADING: Cut bases off the start of a read, if below a threshold quality
-• TRAILING: Cut bases off the end of a read, if below a threshold quality
-• CROP: Cut the read to a specified length
-• HEADCROP: Cut the specified number of bases from the start of the read
-• MINLEN: Drop the read if it is below a specified length
-• TOPHRED33: Convert quality scores to Phred-33
-• TOPHRED64: Convert quality scores to Phred-64
+Description:
+
+- ILLUMINACLIP: Cut adapter and other illumina-specific sequences from the read.
+- SLIDINGWINDOW: Perform a sliding window trimming, cutting once the average quality within the window falls below a threshold.
+- LEADING: Cut bases off the start of a read, if below a threshold quality
+- TRAILING: Cut bases off the end of a read, if below a threshold quality
+- CROP: Cut the read to a specified length
+- HEADCROP: Cut the specified number of bases from the start of the read
+- MINLEN: Drop the read if it is below a specified length
+- TOPHRED33: Convert quality scores to Phred-33
+- TOPHRED64: Convert quality scores to Phred-64
 
 Nota = ASCII_33 contiene los simbolos # y $ mientras que ASCII_64 no los contiene.
 
