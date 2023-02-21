@@ -1,10 +1,10 @@
 # Contenido:
 
 - [Practica 1 - Analisis de calidad de las lecturas y limpieza de adaptadores](#practica1) - 21 Feb 2023
-- [Practica 2](#practica2) - 22 Feb 2023
-- [Practica 3](#practica3) - 21 Feb 2023
-- [Practica 4](#practica4) - 21 Feb 2023
-- [Practica 5](#practica5) - 21 Feb 2023
+- [Practica 2 - Ensamblaje con el transcriptoma de referencia (kallisto)](#practica2) - 22 Feb 2023
+- [Practica 3 - Expresión diferencial con DESeq2](#practica3) - 21 Feb 2023
+- [Practica 4 - Expresión diferencial con edgeR](#practica4) - 21 Feb 2023
+- [Practica 5 - Análisis de terminos GO](#practica5) - 21 Feb 2023
 
 ## Practica 1 - Analisis de calidad de las lecturas y limpieza de adaptadores  <a name="practica1"></a>
 
@@ -18,9 +18,9 @@ ls
 
 ```
 Desgloce de carpetas:
-|-Arabidopsis_thaliana/       # PRJNA821620
+|-Athaliana_Fe_def/           # PRJNA256121
+|-Athaliana_phosphate/        # PRJNA821620
 |-COVID_virus/                # PRJNA858106
-|-Athaliana_phosphate/        # PRJNA87017
 |-Homo_sapiens/               # PRJNA826506
 |-adapters
     |- TruSeq3-PE.fa          # adaptadores para paired-end
@@ -126,10 +126,10 @@ multiqc ./FastQC_trimmed
 rsync -rptuvl ecoss@dna.liigh.unam.mx:/mnt/Timina/bioinfoII/rnaseq/BioProject_2023/rawData/COVID_virus/data/multiqc_report.html . 
 ```
 
-## Practica 2 - x  <a name="practica2"></a>
-## Practica 3 - x  <a name="practica3"></a>
-## Practica 4 - x  <a name="practica4"></a>
-## Practica 5 - x  <a name="practica5"></a>
+## Practica 2 - Ensamblaje con el transcriptoma de referencia (kallisto) <a name="practica2"></a>
+## Practica 3 - Expresión diferencial con DESeq2 <a name="practica3"></a>
+## Practica 4 - Expresión diferencial con edgeR <a name="practica4"></a>
+## Practica 5 - Análisis de terminos GO <a name="practica5"></a>
 
 
 
