@@ -34,7 +34,7 @@ Desgloce de carpetas:
 Vamos a hacer buenas practicas de bioinformatica, acomoda tu proyecto de la siguiente manera:
 
 ```
-|-Arabidopsis_thaliana/       # PRJNA821620
+|-Athaliana_Fe_def/           # PRJNA256121
   |- data/                    # raw_data (fastq.gz)
   |- FastQC_out/              # Salida del analisis de FastQC
   
@@ -44,6 +44,9 @@ Vamos a hacer buenas practicas de bioinformatica, acomoda tu proyecto de la sigu
 Posteriormente, vamos a iniciar el analisis de calidad de las lecturas crudas o sin procesar (raw data):
 
 ```
+# ejemplo:
+cd /mnt/Timina/bioinfoII/rnaseq/BioProject_2023/examples_class/At_BlueDark_example
+
 # cargar module FastQC
 module load fastqc/0.11.3
 fastqc ./data/*.fastq.gz -o ./FastQC_rawData
@@ -64,18 +67,16 @@ mkdir data_trimmed
 
 # Crear symlink
 ln -s /mnt/Timina/bioinfoII/rnaseq/BioProject_2023/rawData/adapters/TruSeq3-PE.fa .
-ln -s /mnt/Timina/bioinfoII/rnaseq/BioProject_2023/rawData/adapters/TruSeq3-SE.fa .
+ln -s /mnt/Timina/bioinfoII/rnaseq/BioProject_2023/rawData/adapters/TruSeq-SE.fa .
 
 # single-end
-cd /mnt/Citosina/amedina/ssalazar/meta/RNA2/fastq_files/SRP111941/fastq_files
-mkdir /mnt/Citosina/amedina/ssalazar/meta/RNA2/fastq_files/SRP111941/TRIM_results
-for i in *;
+cd data
+for i in *.fastq.gz;
 do echo
-trimmomatic SE -threads 2 -phred33 $i ../TRIM_results/"${i%.fastq}_trimmed.fq.gz" ILLUMINACLIP:/mnt/Timina/bioinfoII/rnaseq/BioProject_2023/rawData/adapters/TruSeq-SE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:20 MINLEN:35
+trimmomatic SE -threads 2 -phred33 $i ../data_trimmed/"${i%.fastq}_trimmed.fq.gz" ILLUMINACLIP:../TruSeq-SE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:20 MINLEN:35
 done
 
 # paired-end
-mkdir /mnt/Citosina/amedina/ssalazar/meta/RNA2/fastq_files/SRP322015/TRIM_results
 cd data
 for i in *_1.fastq.gz;
 do echo
@@ -124,7 +125,7 @@ multiqc ./FastQC_trimmed
 ### 4) Descarga de los archivos en tu computadora
 
 ```
-rsync -rptuvl ecoss@dna.liigh.unam.mx:/mnt/Timina/bioinfoII/rnaseq/BioProject_2023/rawData/COVID_virus/data/multiqc_report.html . 
+rsync -rptuvl ecoss@dna.liigh.unam.mx:/mnt/Timina/bioinfoII/rnaseq/examples_class/At_BlueDark_example/COVID_virus/data/multiqc_report.html . 
 ```
 
 ## Practica 2 - Ensamblaje con el transcriptoma de referencia (kallisto) <a name="practica2"></a>
@@ -140,8 +141,72 @@ Transcriptomas empleados en este ejemplo:
     * Control (Dark) - SRR1606325 (repbio1), SRR1608973 (repbio2) y SRR1608977 (repbio3).	
     * Tratamiento de Luz azul (Blue) - SRR1609063 (repbio1), SRR1609064 (repbio2) y SRR1609065 (repbio3).
 
+### 1) Necesitas un transcriptoma de referencia
 
+A) Puedes descargarlo de alguna base de datos
 
+*Homo sapiens*
+
+```
+# /mnt/Timina/bioinfoII/rnaseq/BioProject_2023/examples_class/
+wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M28/gencode.vM28.transcripts.fa.gz
+```
+
+B) Puedes generarlo
+
+En este paso necesitas hacer alineamiento y ensamblaje con el genoma de referenia.
+
+STAR --> Stringtie --> At_stringm_seq_v2.fasta
+
+Este transcriptoma lo genere a partir de 254 transcriptomas.
+
+*Arabidopsis thaliana*
+
+```
+# /mnt/s/Repositorio_scripts/Intersect_lncRNAs/original_FASTA_files
+# Cargar archivos
+rsync -av ./At_stringm_seq_v2.fasta
+ecoss@dna.liigh.unam.mx:/mnt/Timina/bioinfoII/rnaseq/BioProject_2023/examples_class/At_BlueDark_example/
+```
+
+**Nota:** Para emplear estos archivos pueden usar symlink. (ln -s /Ruta/Completa /Ruta/WORK).
+
+```
+# Homo sapiens
+ln -s /mnt/Timina/bioinfoII/rnaseq/BioProject_2023/examples_class/Human_cells_example/gencode.vM28.transcripts.fa.gz . 
+
+# Arabidopsis thaliana
+ln -s /mnt/Timina/bioinfoII/rnaseq/BioProject_2023/examples_class/At_BlueDark_example/At_stringm_seq_v2.fasta .
+```
+
+### 2) Generar el index de Kallisto
+
+``
+# Generar index de kallisto
+kallisto index -i At_ref.kidx At_stringm_seq_v2.fasta
+``
+- i nombre del archivo de salida, i.e., indice
+- Input =  At_stringm_seq_v2.fasta, transcriptoma de referencia
+
+### 3) Pseudoalineamiento con Kallisto
+
+```
+# Single-end
+for file in ./B_oleracea/*_1.fastq.gz
+do
+  clean=$(echo $file|sed 's/_1\.fastq\.gz//')
+  file_2=$(echo ${clean}_2.fastq.gz| sed 's/FP/RP/')
+  kallisto quant --index Brassica_oleracea.kidx --output-dir $clean --threads 8 ${file} ${file_2}
+done
+
+# Paired-end
+for file in ./B_oleracea/*_1.fastq.gz
+do
+  clean=$(echo $file|sed 's/_1\.fastq\.gz//')
+  file_2=$(echo ${clean}_2.fastq.gz| sed 's/FP/RP/')
+  kallisto quant --index Brassica_oleracea.kidx --output-dir $clean --threads 8 ${file} ${file_2}
+done
+```
 
 ## Practica 3 - Expresión diferencial con DESeq2 <a name="practica3"></a>
 ## Practica 4 - Expresión diferencial con edgeR <a name="practica4"></a>
