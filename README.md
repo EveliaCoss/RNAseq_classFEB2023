@@ -107,14 +107,14 @@ install.packages("stringr")
       <th scope="row">1</th>
       <td><center>Aspectos generales de RNA-Seq</center></td>
       <td><center>3</center></td>
-      <td><center>4</center></td>
+      <td><center>[Practica1](https://github.com/EveliaCoss/RNAseq_classFEB2023/blob/main/RNA_seq/README.md#practica1)</center></td>
   </tr>
    </tr>
     <tr class="table-light">
       <th scope="row">2</th>
       <td><center>Diversos pipeline para Alineamiento, ensamblaje y conteo</center></td>
       <td><center>2nd</center></td>
-      <td><center>Two</center></td>
+      <td><center>[Practica2](https://github.com/EveliaCoss/RNAseq_classFEB2023/blob/main/RNA_seq/README.md#practica2)</center></td>
   </tr>
   </tr>
     <tr class="table-light">
