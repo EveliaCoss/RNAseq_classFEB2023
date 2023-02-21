@@ -127,6 +127,21 @@ rsync -rptuvl ecoss@dna.liigh.unam.mx:/mnt/Timina/bioinfoII/rnaseq/BioProject_20
 ```
 
 ## Practica 2 - Ensamblaje con el transcriptoma de referencia (kallisto) <a name="practica2"></a>
+
+Transcriptomas empleados en este ejemplo: 
+
+- **BioProject:** [PRJNA263310](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA263310)
+- **Numero de transcriptomas:** 6 transcriptomas 
+- **Tipo de bibliotecas:** *Single-end*
+- **Metodo de seleccion:** oligo dT / polyA
+- **Secuenciador:** Illumina HiSeq 2000
+- **Distribucion de las muestras:** 
+    * Control (Dark) - SRR1606325 (repbio1), SRR1608973 (repbio2) y SRR1608977 (repbio3).	
+    * Tratamiento de Luz azul (Blue) - SRR1609063 (repbio1), SRR1609064 (repbio2) y SRR1609065 (repbio3).
+
+
+
+
 ## Practica 3 - Expresión diferencial con DESeq2 <a name="practica3"></a>
 ## Practica 4 - Expresión diferencial con edgeR <a name="practica4"></a>
 ## Practica 5 - Análisis de terminos GO <a name="practica5"></a>
