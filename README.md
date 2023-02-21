@@ -113,7 +113,7 @@ install.packages("stringr")
     <tr class="table-light">
       <th scope="row">2</th>
       <td><center>Diversos pipeline para Alineamiento, ensamblaje y conteo</center></td>
-      <td><center>Presentacion2</center></td>
+      <td><center>https://github.com/EveliaCoss/RNAseq_classFEB2023/blob/24cccaa85e8dd653ec503613307650bf1d07c208/RNA_seq/slides/D2_Alineamiento1_sesion.pdf</center></td>
       <td><center>https://github.com/EveliaCoss/RNAseq_classFEB2023/blob/main/RNA_seq/README.md#practica2</center></td>
   </tr>
   </tr>
