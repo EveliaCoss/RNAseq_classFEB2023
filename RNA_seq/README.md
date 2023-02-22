@@ -330,7 +330,7 @@ Ejemplo:  FastQCTrimmed_dow.sh
 
 # PARTE 1.- FastQC y multiQC
 fastqc ./data/*.fastq.gz -o ./FastQC_rawData
-multiqc ./FastQC_rawData
+multiqc ./FastQC_rawData -o ./FastQC_rawData
 
 # PARTE 2.- Limpieza de adaptadores
 # single-end
@@ -344,7 +344,7 @@ done
 cd ../
 fastqc ./data_trimmed/*.fastq.gz -o ./FastQC_trimmed
 # Reporte en MultiQC
-multiqc ./FastQC_trimmed
+multiqc ./FastQC_trimmed -o ./FastQC_trimmed
 ```
 
 Ejemplo:  Trimmed_run.sge
