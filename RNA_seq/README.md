@@ -514,9 +514,9 @@ kallisto index -i ./kallisto_quant/At_ref.kidx At_stringm_seq_v2.fasta
 #- Input =  At_stringm_seq_v2.fasta, transcriptoma de referencia
 
 # Single-end
-for file in ./data_trimmed/*.fastq.gz
+for file in ./data_trimmed/*trimmed.fq.gz
 do
-  clean=$(echo $file | sed 's/\.fastq\.gz//')           # Nombre de la carpeta de salida, mismo nombre de SRA
+  clean=$(echo $file | sed 's/\.fq\.gz//')           # Nombre de la carpeta de salida, mismo nombre de SRA
   kallisto quant --index ./kallisto_quant/At_ref.kidx --output-dir $clean --threads 8 $file
 done
 
