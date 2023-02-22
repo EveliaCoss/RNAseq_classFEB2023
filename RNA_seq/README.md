@@ -256,7 +256,7 @@ ln -s /mnt/Timina/bioinfoII/rnaseq/BioProject_2023/rawData/adapters/TruSeq-SE.fa
 cd data
 for i in *.fastq.gz;
 do echo
-trimmomatic SE -threads 2 -phred33 $i ../data_trimmed/"${i%.fastq}_trimmed.fq.gz" ILLUMINACLIP:../TruSeq-SE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:20 MINLEN:35
+trimmomatic SE -threads 2 -phred33 $i ../data_trimmed/"${i%.fastq}_trimmed.fastq.gz" ILLUMINACLIP:../TruSeq-SE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:20 MINLEN:35
 done
 
 # paired-end
@@ -299,7 +299,7 @@ Nota = ASCII_33 contiene los simbolos # y $ mientras que ASCII_64 no los contien
 
 ```
 mkdir FastQC_trimmed
-fastqc ./data_trimmed/*.fastq.gz -o ./FastQC_trimmed
+fastqc ./data_trimmed/*trimmed.fastq.gz -o ./FastQC_trimmed
 
 # Reporte en MultiQC
 multiqc ./FastQC_trimmed
@@ -337,35 +337,11 @@ multiqc ./FastQC_rawData
 cd data
 for i in *.fastq.gz;
 do echo
-trimmomatic SE -threads 2 -phred33 $i ../data_trimmed/"${i%.fastq}_trimmed.fq.gz" ILLUMINACLIP:../TruSeq-SE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:20 MINLEN:35
+trimmomatic SE -threads 2 -phred33 $i ../data_trimmed/"${i%.fastq}_trimmed.fastq.gz" ILLUMINACLIP:../TruSeq-SE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:20 MINLEN:35
 done
 
 # PARTE 3.- FastQC y multiQC
-fastqc ./data_trimmed/*.fastq.gz -o ./FastQC_trimmed
-# Reporte en MultiQC
-multiqc ./FastQC_trimmed#!/bin/bash
-
-# USAGE= ./FastQCTrimmed_dow.sh
-# sed -i 's/\r//' FastQCTrimmed_dow.sh
-
-# AUTHOR: Evelia Lorena Coss Navarrete
-# https://github.com/EveliaCoss
-
-# /mnt/Citosina/amedina/ecoss/Class/data/rawData_fastq
-
-# PARTE 1.- FastQC y multiQC
-fastqc ./data/*.fastq.gz -o ./FastQC_rawData
-multiqc ./FastQC_rawData
-
-# PARTE 2.- Limpieza de adaptadores
-# single-end
-cd data
-for i in *.fastq.gz;
-do echo
-trimmomatic SE -threads 2 -phred33 $i ../data_trimmed/"${i%.fastq}_trimmed.fq.gz" ILLUMINACLIP:../TruSeq-SE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:20 MINLEN:35
-done
-
-# PARTE 3.- FastQC y multiQC
+cd ../
 fastqc ./data_trimmed/*.fastq.gz -o ./FastQC_trimmed
 # Reporte en MultiQC
 multiqc ./FastQC_trimmed
