@@ -67,13 +67,12 @@ Los caracteres atribuidos a los permisos son:
 - *w* : lectura (Write)
 - *x* : ejecución (eXecute)
 
-x-------------x-------------x
 |  permisos   |  pertenece  |
-x-------------x-------------x
+|-------------|-------------|
 |  rwx------  | usuario     |
 |  ---r-x---  | grupo       |
 |  ------r-x  | otros       |
-x-------------x-------------x
+
 
 La representación octal de chmod es muy sencilla
 
@@ -81,7 +80,8 @@ La representación octal de chmod es muy sencilla
 - Escritura tiene el valor de 2
 - Ejecución tiene el valor de 1
 
-x-----x-----x-----------------------------------x
+|  permisos| valor | significado |
+|-----|-----|-----------------------------------|
 | rwx |  7  | Lectura, escritura y ejecución    |
 | rw- |  6  | Lectura, escritura        |
 | r-x |  5  | Lectura y ejecución       |
@@ -90,11 +90,11 @@ x-----x-----x-----------------------------------x
 | -w- |  2  | Escritura                         |
 | --x |  1  | Ejecución             |
 | --- |  0  | Sin permisos          |
-x-----x-----x-----------------------------------x
 
 Por lo tanto:
 
-x------------------------x-----------x
+| Forma larga |  Forma Octal |
+|------------------------|-----------|
 |chmod u=rwx,g=rwx,o=rx  | chmod 775 | 
 |chmod u=rwx,g=rx,o=     | chmod 760 |
 |chmod u=rw,g=r,o=r      | chmod 644 |
