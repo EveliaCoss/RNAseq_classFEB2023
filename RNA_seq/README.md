@@ -39,6 +39,8 @@ Desgloce de carpetas:
 |-SRA_run.sge                 # Mandar como job al cluster
 ```
 
+### Error 1
+
 Para descargar achivos por cada USUARIO debes modificar lo siguiente:
 
 ```
@@ -49,9 +51,63 @@ Va a desplegar la siguiente pantalla, te puedes mover con las letras que salen a
 1 ) Teclamos C, para ir **C**ACHE
 2 ) Deshabilitamos [] enable local file-caching, tecleando i
 3 ) Vamos a guardar el cambio, tecleando s
-4 ) para salir tecleamos x.
+4 ) teclea o, de OK
+5 ) para salir tecleamos x.
 
 ![vdf](./img/vdb_config.png)
+
+Este paso es basico e indispensable para que puedas usar las herramientas de SRA tools (modulo sra/3.0.0).
+
+### Error 2
+
+Cada usuario tiene permisos diferentes cuando crea un archivo. Los permisos pueden modificarse con *chmod*.
+
+Los caracteres atribuidos a los permisos son:
+- *r* : escritura (Read)
+- *w* : lectura (Write)
+- *x* : ejecución (eXecute)
+
+x-------------x-------------x
+|  permisos   |  pertenece  |
+x-------------x-------------x
+|  rwx------  | usuario     |
+|  ---r-x---  | grupo       |
+|  ------r-x  | otros       |
+x-------------x-------------x
+
+La representación octal de chmod es muy sencilla
+
+- Lectura tiene el valor de 4
+- Escritura tiene el valor de 2
+- Ejecución tiene el valor de 1
+
+x-----x-----x-----------------------------------x
+| rwx |  7  | Lectura, escritura y ejecución    |
+| rw- |  6  | Lectura, escritura        |
+| r-x |  5  | Lectura y ejecución       |
+| r-- |  4  | Lectura               |
+| -wx |  3  | Escritura y ejecución             |
+| -w- |  2  | Escritura                         |
+| --x |  1  | Ejecución             |
+| --- |  0  | Sin permisos          |
+x-----x-----x-----------------------------------x
+
+Por lo tanto:
+
+x------------------------x-----------x
+|chmod u=rwx,g=rwx,o=rx  | chmod 775 | 
+|chmod u=rwx,g=rx,o=     | chmod 760 |
+|chmod u=rw,g=r,o=r      | chmod 644 |
+|chmod u=rw,g=r,o=       | chmod 640 |
+|chmod u=rw,go=          | chmod 600 |
+|chmod u=rwx,go=         | chmod 700 |
+x------------------------x-----------x
+
+Como no estamos en nigun grupos, todos estamos en "otros", recomiendo que cambien todo lo que generen con:
+
+```
+chmod 777 Archivo
+```
 
 ### TAREA:
 
@@ -258,6 +314,10 @@ multiqc ./FastQC_trimmed
 ```
 rsync -rptuvl ecoss@dna.liigh.unam.mx:/mnt/Timina/bioinfoII/rnaseq/examples_class/At_BlueDark_example/COVID_virus/data/multiqc_report.html . 
 ```
+
+### Referencias
+
+[Cambio de permisos](https://blog.desdelinux.net/permisos-basicos-en-gnulinux-con-chmod/?_gl=1%2A2y07vi%2A_ga%2AYW1wLUdoUlFla2VDM1RfdGlkMlJaYk1XRF9MRlkzSVcxeWx4eDZ5VzExRTlSX092bmFPdUgzTUZrYUhTUUhDRnRuX2c)
 
 ## Practica 2 - Ensamblaje con el transcriptoma de referencia (kallisto) <a name="practica2"></a>
 
