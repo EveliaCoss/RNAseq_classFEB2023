@@ -133,17 +133,15 @@ SRR1524938
 nano Athaliana_fastq.txt
 ```
 
-- 3) Edita el archivo.sh para que se ejecute en tu carpeta y guarde la informacion.
+- 3) Edita el archivo.sh para que se ejecute en tu carpeta y guarde la informacion. Ejemplo de como debe quedar el codigo:
 
 ```
-cat SRAData_dow.sh
-#!/bin/bash
-
+cat SRA_Hs_dow.sh
 # Descarga de datos
 # PARTE 1.- Descargar SRA
 # PARTE 2.- Cambio de SRA a Fastq
-# USAGE= ./SRAData_dow.sh
-# sed -i 's/\r//' SRAData_dow.sh
+# USAGE= ./SRA_Hs_dow.sh
+# sed -i 's/\r//' ./SRA_Hs_dow.sh
 
 # AUTHOR: Evelia Lorena Coss Navarrete
 # https://github.com/EveliaCoss
@@ -151,29 +149,26 @@ cat SRAData_dow.sh
 # Tip: Cambia las direcciones para cada proyecto
 
 # PARTE 1.- Descargar SRA
-prefetch --option-file ./Athaliana_Fe_def/Athaliana_fastq.txt
+prefetch --option-file ./human_fastq.txt -O ./data
+
+# --option-file : archivo de entrada con cada SRA por renglon
+# -O : salida
 
 # PARTE 2.- Cambio de SRA a Fastq
-fastq-dump --gzip --skip-technical --dumpbase --split-3 --clip --outdir ./Athaliana_Fe_def/data/ ./Athaliana_Fe_def/data/SRR*/*.sra
-```
-
-Debes editar : ./Athaliana_Fe_def/Athaliana_fastq.txt en prefetch --option-file ./Athaliana_Fe_def/Athaliana_fastq.txt para que sea en tu carpeta.
-
-```
-# Si estoy dentro de la carpeta entonces:
-cd Athaliana_Fe_def
-
-# Modificacion 1
-prefetch --option-file ./Athaliana_fastq.txt
-
-# Modificacion 2
 fastq-dump --gzip --skip-technical --dumpbase --split-3 --clip --outdir ./data/ ./data/SRR*/*.sra
+
+# --gzip : Descomprimir archivos comprimidos con .gz
+# --skip-technical : Optener solo lecturas de cada replica biologica. No tecnicas.
+# --dumpbase : Formato de las secuencias basada en espacios.
+# --split-3 : Separar archivos dependiendo del SRA en single-end con *.fastq, si es paired-end con *_1.fastq y *_2.fastq
+# --clip : Remover adaptadores de las lecturas
+# --outdir : salida
 ```
 
 - 4) Edita el archivo.sge para que puedas mandar el job de acuerdo a lo que necesitas.
 
 ```
-cat SRA_run.sge
+cat SRA_Hs_run.sge
 #!/bin/bash
 #
 # Use Current working directory
@@ -188,11 +183,11 @@ cat SRA_run.sge
 # You can edit the script since this line
 #
 # Your job name
-#$ -N RawData_SRA
+#$ -N Hs2RawData
 #
 # Send an email after the job has finished
 #$ -m e
-#$ -M ccc@gmail.com
+#$ -M ecossnav@gmail.com
 #
 #
 # If modules are needed, source modules environment (Do not delete the next line):
@@ -202,7 +197,7 @@ cat SRA_run.sge
 module load sra/3.0.0
 #
 # Write your commands in the next line
-./SRAData_dow.sh
+./SRA_Hs_dow.sh
 ```
 
 Agrega tu email para que te avise cuando termine: #$ -M ccc@gmail.com
