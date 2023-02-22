@@ -466,13 +466,13 @@ ln -s /mnt/Timina/bioinfoII/rnaseq/BioProject_2023/examples_class/At_BlueDark_ex
 
 ### 2) Generar el index de Kallisto
 
-``
+```
 mkdir kallisto_quant
 
 # Generar index de kallisto
 module load kallisto/0.45.0 # cargar modulo de kallisto
 kallisto index -i ./kallisto_quant/At_ref.kidx At_stringm_seq_v2.fasta
-``
+```
 - i nombre del archivo de salida, i.e., indice
 - Input =  At_stringm_seq_v2.fasta, transcriptoma de referencia
 
