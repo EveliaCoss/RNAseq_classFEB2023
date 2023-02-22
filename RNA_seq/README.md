@@ -144,7 +144,7 @@ Vamos a hacer buenas practicas de bioinformatica, acomoda tu proyecto de la sigu
 ```
 |-Athaliana_Fe_def/           # PRJNA256121
   |- data/                    # raw_data (fastq.gz)
-  |- FastQC_out/              # Salida del analisis de FastQC
+  |- FastQC_rawData/              # Salida del analisis de FastQC
   
  # Tipo: mkdir FastQC_rawData
 ```
