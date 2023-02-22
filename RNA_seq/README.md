@@ -11,7 +11,15 @@
 ### 1) Analisis de calidad de las lecturas crudas (raw data)
 
 ```
-screen -S data # guardar una sesion en screen
+screen -S SRAdata # guardar una sesion en screen
+
+# Nota para screen:
+# - screen -S nombre : Guardar tu sesion actual
+# - screen -ls : Ver el ID de tus sesiones
+# - screen -r ID : cargar tu sesion de screen 
+# - Ctrl + a + d : Salir del screen
+# - Ctrl + a + esc : scroll
+
 qlogin
 cd /mnt/Timina/bioinfoII/rnaseq/BioProject_2023/rawData
 ls
@@ -30,6 +38,21 @@ Desgloce de carpetas:
 |-SRAData_dow.sh              # Descarga de SRA
 |-SRA_run.sge                 # Mandar como job al cluster
 ```
+
+Para descargar achivos por cada USUARIO debes modificar lo siguiente:
+
+```
+module load sra/3.0.0
+vdb-config -i # disable storage of cache in ~
+```
+Va a desplegar la siguiente pantalla, te puedes mover con las letras que salen ahi. 
+1 ) Teclamos C, para ir **C**ACHE
+2 ) Deshabilitamos [] enable local file-caching, tecleando i
+3 ) Vamos a guardar el cambio, tecleando s
+4 ) para salir tecleamos x.
+
+![vdf](./img/vdb_config.png)
+
 ### TAREA:
 
 - 1) Copiar lo archivos SRAData_dow.sh y SRA_run.sge en tu carpeta (proyecto).
