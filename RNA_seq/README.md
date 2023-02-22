@@ -51,7 +51,7 @@ Va a desplegar la siguiente pantalla, te puedes mover con las letras que salen a
 3 ) Vamos a guardar el cambio, tecleando s
 4 ) para salir tecleamos x.
 
-
+![vdf](./img/vdb_config.png)
 
 ### TAREA:
 
