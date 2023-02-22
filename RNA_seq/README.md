@@ -1,6 +1,6 @@
 # Contenido:
 
-- [Practica 1 - Analisis de calidad de las lecturas y limpieza de adaptadores](#practica1) - 21 Feb 2023
+- [Practica 1 - Analisis de calidad de las lecturas y limpieza de adaptadores](#practica1) - 21-22 Feb 2023
 - [Practica 2 - Ensamblaje con el transcriptoma de referencia (kallisto)](#practica2) - 22 Feb 2023
 - [Practica 3 - Expresión diferencial con DESeq2](#practica3) - 23 Feb 2023
 - [Practica 4 - Expresión diferencial con edgeR](#practica4) - 24 Feb 2023
