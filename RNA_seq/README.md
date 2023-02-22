@@ -187,7 +187,7 @@ cat SRA_Hs_run.sge
 #
 # Send an email after the job has finished
 #$ -m e
-#$ -M ecossnav@gmail.com
+#$ -M ccc@gmail.com
 #
 #
 # If modules are needed, source modules environment (Do not delete the next line):
@@ -208,7 +208,7 @@ NOTA: necesitas mas modulos debes agregarlos en el archivo.sge, si cambias el sc
 
 ```
 # no este en qlogin, tienes que estar en root
-qsub SRA_run.sge
+qsub SRA_Hs_run.sge
 ```
 
 ### Continuamos con la practica 
@@ -230,6 +230,7 @@ Posteriormente, vamos a iniciar el analisis de calidad de las lecturas crudas o 
 cd /mnt/Timina/bioinfoII/rnaseq/BioProject_2023/examples_class/At_BlueDark_example
 
 # cargar module FastQC
+qlogin
 module load fastqc/0.11.3
 fastqc ./data/*.fastq.gz -o ./FastQC_rawData
 ```
@@ -310,11 +311,109 @@ multiqc ./FastQC_trimmed
 rsync -rptuvl ecoss@dna.liigh.unam.mx:/mnt/Timina/bioinfoII/rnaseq/examples_class/At_BlueDark_example/COVID_virus/data/multiqc_report.html . 
 ```
 
+### 5) Mandar todo en un job
+
+Necesitas un sh y un sge
+
+Ejemplo:  FastQCTrimmed_dow.sh
+
+```
+#!/bin/bash
+
+# USAGE= ./FastQCTrimmed_dow.sh
+# sed -i 's/\r//' FastQCTrimmed_dow.sh
+
+# AUTHOR: Evelia Lorena Coss Navarrete
+# https://github.com/EveliaCoss
+
+# /mnt/Citosina/amedina/ecoss/Class/data/rawData_fastq
+
+# PARTE 1.- FastQC y multiQC
+fastqc ./data/*.fastq.gz -o ./FastQC_rawData
+multiqc ./FastQC_rawData
+
+# PARTE 2.- Limpieza de adaptadores
+# single-end
+cd data
+for i in *.fastq.gz;
+do echo
+trimmomatic SE -threads 2 -phred33 $i ../data_trimmed/"${i%.fastq}_trimmed.fq.gz" ILLUMINACLIP:../TruSeq-SE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:20 MINLEN:35
+done
+
+# PARTE 3.- FastQC y multiQC
+fastqc ./data_trimmed/*.fastq.gz -o ./FastQC_trimmed
+# Reporte en MultiQC
+multiqc ./FastQC_trimmed#!/bin/bash
+
+# USAGE= ./FastQCTrimmed_dow.sh
+# sed -i 's/\r//' FastQCTrimmed_dow.sh
+
+# AUTHOR: Evelia Lorena Coss Navarrete
+# https://github.com/EveliaCoss
+
+# /mnt/Citosina/amedina/ecoss/Class/data/rawData_fastq
+
+# PARTE 1.- FastQC y multiQC
+fastqc ./data/*.fastq.gz -o ./FastQC_rawData
+multiqc ./FastQC_rawData
+
+# PARTE 2.- Limpieza de adaptadores
+# single-end
+cd data
+for i in *.fastq.gz;
+do echo
+trimmomatic SE -threads 2 -phred33 $i ../data_trimmed/"${i%.fastq}_trimmed.fq.gz" ILLUMINACLIP:../TruSeq-SE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:20 MINLEN:35
+done
+
+# PARTE 3.- FastQC y multiQC
+fastqc ./data_trimmed/*.fastq.gz -o ./FastQC_trimmed
+# Reporte en MultiQC
+multiqc ./FastQC_trimmed
+```
+
+Ejemplo:  Trimmed_run.sge
+
+```
+#!/bin/bash
+#
+# Use Current working directory
+#$ -cwd
+#
+# Join stdout and stderr
+#$ -j n
+#
+# Run job through bash shell
+#$ -S /bin/bash
+#
+# You can edit the script since this line
+#
+# Your job name
+#$ -N Trimmed_SRA_Arabidopsis
+#
+# Send an email after the job has finished
+#$ -m e
+#$ -M ecossnav@gmail.com
+#
+#
+# If modules are needed, source modules environment (Do not delete the next line):
+. /etc/profile.d/modules.sh
+#
+# Add any modules you might require:
+module load fastqc/0.11.3
+module load multiqc/1.5
+module load trimmomatic/0.33
+#
+# Write your commands in the next line
+./FastQCTrimmed_dow.sh
+```
+
+Nota: recuerda cambiar los permisos `chmod 777 Archivos`
+
 ### Referencias
 
 [Cambio de permisos](https://blog.desdelinux.net/permisos-basicos-en-gnulinux-con-chmod/?_gl=1%2A2y07vi%2A_ga%2AYW1wLUdoUlFla2VDM1RfdGlkMlJaYk1XRF9MRlkzSVcxeWx4eDZ5VzExRTlSX092bmFPdUgzTUZrYUhTUUhDRnRuX2c)
 
-## Practica 2 - Ensamblaje con el transcriptoma de referencia (kallisto) <a name="practica2"></a>
+## Practica 2 - Ensamblaje con el transcriptoma de referencia (Kallisto) <a name="practica2"></a>
 
 Transcriptomas empleados en este ejemplo: 
 
@@ -368,8 +467,11 @@ ln -s /mnt/Timina/bioinfoII/rnaseq/BioProject_2023/examples_class/At_BlueDark_ex
 ### 2) Generar el index de Kallisto
 
 ``
+mkdir kallisto_quant
+
 # Generar index de kallisto
-kallisto index -i At_ref.kidx At_stringm_seq_v2.fasta
+module load kallisto/0.45.0 # cargar modulo de kallisto
+kallisto index -i ./kallisto_quant/At_ref.kidx At_stringm_seq_v2.fasta
 ``
 - i nombre del archivo de salida, i.e., indice
 - Input =  At_stringm_seq_v2.fasta, transcriptoma de referencia
@@ -378,20 +480,70 @@ kallisto index -i At_ref.kidx At_stringm_seq_v2.fasta
 
 ```
 # Single-end
-for file in ./B_oleracea/*_1.fastq.gz
+for file in ./data_trimmed/*.fastq.gz
 do
-  clean=$(echo $file|sed 's/_1\.fastq\.gz//')
-  file_2=$(echo ${clean}_2.fastq.gz| sed 's/FP/RP/')
-  kallisto quant --index Brassica_oleracea.kidx --output-dir $clean --threads 8 ${file} ${file_2}
+  clean=$(echo $file | sed 's/\.fastq\.gz//')           # Nombre de la carpeta de salida, mismo nombre de SRA
+  kallisto quant --index ./kallisto_quant/At_ref.kidx --output-dir $clean --threads 8 $file
 done
 
+
 # Paired-end
-for file in ./B_oleracea/*_1.fastq.gz
+for file in ./data_trimmed/*_1.fastq.gz                 # Read1
 do
-  clean=$(echo $file|sed 's/_1\.fastq\.gz//')
-  file_2=$(echo ${clean}_2.fastq.gz| sed 's/FP/RP/')
-  kallisto quant --index Brassica_oleracea.kidx --output-dir $clean --threads 8 ${file} ${file_2}
+  clean=$(echo $file | sed 's/_1\.fastq\.gz//')         # Nombre de la carpeta de salida, mismo nombre de SRA
+  file_2=$(echo ${clean}_2.fastq.gz| sed 's/FP/RP/')    # Read2
+  kallisto quant --index ./kallisto_quant/At_ref.kidx --output-dir $clean --threads 8 ${file} ${file_2}
 done
+```
+
+### 4) Mandar todo en un job
+
+Podemos poner todo en un solo sge.
+
+```
+#!/bin/bash
+#
+# Use Current working directory
+#$ -cwd
+#
+# Join stdout and stderr
+#$ -j n
+#
+# Run job through bash shell
+#$ -S /bin/bash
+#
+# You can edit the script since this line
+#
+# Your job name
+#$ -N Kallisto_example
+#
+# Send an email after the job has finished
+#$ -m e
+#$ -M ccc@gmail.com
+#
+#
+# If modules are needed, source modules environment (Do not delete the next line):
+. /etc/profile.d/modules.sh
+#
+# Add any modules you might require:
+module load kallisto/0.45.0
+#
+# Write your commands in the next line
+
+# Generar index de kallisto
+module load kallisto/0.45.0 # cargar modulo de kallisto
+kallisto index -i ./kallisto_quant/At_ref.kidx At_stringm_seq_v2.fasta
+
+# - i nombre del archivo de salida, i.e., indice
+#- Input =  At_stringm_seq_v2.fasta, transcriptoma de referencia
+
+# Single-end
+for file in ./data_trimmed/*.fastq.gz
+do
+  clean=$(echo $file | sed 's/\.fastq\.gz//')           # Nombre de la carpeta de salida, mismo nombre de SRA
+  kallisto quant --index ./kallisto_quant/At_ref.kidx --output-dir $clean --threads 8 $file
+done
+
 ```
 
 ## Practica 3 - Expresión diferencial con DESeq2 <a name="practica3"></a>
