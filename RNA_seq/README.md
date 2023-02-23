@@ -239,7 +239,7 @@ Para el reporte en MultiQC:
 
 ```
 module load multiqc/1.5
-multiqc ./FastQC_rawData
+multiqc ./FastQC_rawData -o ./FastQC_rawData
 ```
 
 ### 2) Limpieza de adaptadores
@@ -302,7 +302,7 @@ mkdir FastQC_trimmed
 fastqc ./data_trimmed/*trimmed.fastq.gz -o ./FastQC_trimmed
 
 # Reporte en MultiQC
-multiqc ./FastQC_trimmed
+multiqc ./FastQC_trimmed -o ./FastQC_trimmed
 ```
 
 ### 4) Descarga de los archivos en tu computadora
@@ -507,7 +507,6 @@ module load kallisto/0.45.0
 # Write your commands in the next line
 
 # Generar index de kallisto
-module load kallisto/0.45.0 # cargar modulo de kallisto
 kallisto index -i ./kallisto_quant/At_ref.kidx At_stringm_seq_v2.fasta
 
 # - i nombre del archivo de salida, i.e., indice
@@ -516,10 +515,95 @@ kallisto index -i ./kallisto_quant/At_ref.kidx At_stringm_seq_v2.fasta
 # Single-end
 for file in ./data_trimmed/*trimmed.fq.gz
 do
-  clean=$(echo $file | sed 's/\.fq\.gz//')           # Nombre de la carpeta de salida, mismo nombre de SRA
-  kallisto quant --index ./kallisto_quant/At_ref.kidx --output-dir $clean --threads 8 $file
+  clean=$(echo $file | sed 's/^.\{15\}//g;s/_trimmed//;s/\.fastq\.gz//;s/\.fq\.gz//')   # Nombre de la carpeta de salida, mismo nombre de SRA
+  kallisto quant --index ./kallisto_quant/At_ref.kidx --output-dir ./kallisto_quant/${clean} --single -l 200 -s 20  --threads=12 $file
 done
+```
 
+* -l 200 : mean = 200
+* -s 20 : sd = 20
+
+### 5) Output de trabajo
+
+#### Cuando se genera el indice se obtiene esta salida:
+
+```
+cat Kallisto_AtB.e272267
+
+[build] loading fasta file At_stringm_seq_v2.fasta
+[build] k-mer length: 31
+[build] warning: clipped off poly-A tail (longer than 10)
+        from 125 target sequences
+[build] warning: replaced 779 non-ACGUT characters in the input sequence
+        with pseudorandom nucleotides
+[build] counting k-mers ... done.
+[build] building target de Bruijn graph ...  done
+[build] creating equivalence classes ...  done
+[build] target de Bruijn graph has 431334 contigs and contains 58023203 k-mers
+```
+
+#### Cuando se hace el pseudoalineamiento con el conteo tenemos esta salida:
+
+```
+cat Kallisto_AtB.e272267
+
+[quant] fragment length distribution is truncated gaussian with mean = 200, sd = 20
+[index] k-mer length: 31
+[index] number of targets: 81,630
+[index] number of k-mers: 58,023,203
+[index] number of equivalence classes: 220,711
+[quant] running in single-end mode
+[quant] will process file 1: ./data_trimmed/SRR1606325.fastq.gz_trimmed.fq.gz
+[quant] finding pseudoalignments for the reads ... done
+[quant] processed 35,652,173 reads, 27,944,704 reads pseudoaligned
+[   em] quantifying the abundances ... done
+[   em] the Expectation-Maximization algorithm ran for 1,186 rounds
+
+
+[quant] fragment length distribution is truncated gaussian with mean = 200, sd = 20
+[index] k-mer length: 31
+[index] number of targets: 81,630
+[index] number of k-mers: 58,023,203
+[index] number of equivalence classes: 220,711
+[quant] running in single-end mode
+[quant] will process file 1: ./data_trimmed/SRR1608973.fastq.gz_trimmed.fq.gz
+[quant] finding pseudoalignments for the reads ... done
+[quant] processed 34,164,384 reads, 25,854,250 reads pseudoaligned
+[   em] quantifying the abundances ... done
+[   em] the Expectation-Maximization algorithm ran for 1,136 rounds
+```
+
+### 6) Errores en Kallisto
+
+Debes poner --single -l -s, si no sale este error:
+
+```
+Error: fragment length mean and sd must be supplied for single-end reads using -l and -s
+```
+
+### 7) Como sabemos que ya termino:
+
+```
+ls kallisto_quant/*
+kallisto_quant/At_ref.kidx
+
+kallisto_quant/SRR1606325:
+abundance.h5  abundance.tsv  run_info.json
+
+kallisto_quant/SRR1608973:
+abundance.h5  abundance.tsv  run_info.json
+
+kallisto_quant/SRR1608977:
+abundance.h5  abundance.tsv  run_info.json
+
+kallisto_quant/SRR1609063:
+abundance.h5  abundance.tsv  run_info.json
+
+kallisto_quant/SRR1609064:
+abundance.h5  abundance.tsv  run_info.json
+
+kallisto_quant/SRR1609065:
+abundance.h5  abundance.tsv  run_info.json
 ```
 
 ## Practica 3 - Expresión diferencial con DESeq2 <a name="practica3"></a>
