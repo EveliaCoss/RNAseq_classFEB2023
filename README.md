@@ -74,7 +74,7 @@ if (!require("BiocManager", quietly = TRUE))
 BiocManager::install(version = "3.16")
 
 # Paquetes / librerias
-paquetes = c("DESeq2", "tximport", "edgeR")
+paquetes = c("DESeq2", "tximport")
 BiocManager::install(paquetes)
 ```
 
@@ -85,9 +85,11 @@ BiocManager::install(paquetes)
 
 ```
 install.packages("tidyverse")
-install.packages("RColorBrewer")
+#install.packages("RColorBrewer")
 install.packages("dplyr")
-install.packages("stringr")
+#install.packages("stringr")
+install.packages("ggrepel")
+install.packages("ggplot2")
 ```
 
 ### Agenda
