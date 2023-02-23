@@ -612,7 +612,11 @@ abundance.h5  abundance.tsv  run_info.json
 ### 8) Descarga de los archivos en tu computadora
 
 ```
+# Descagar resultados de kallisto
 rsync -rptuvl ecoss@dna.liigh.unam.mx:/mnt/Timina/bioinfoII/rnaseq/BioProject_2023/examples_class/At_BlueDark_example/kallisto_quant/SRR* . 
+
+# tx2gene
+rsync -rptuvl ecoss@dna.liigh.unam.mx:/mnt/Timina/bioinfoII/rnaseq/BioProject_2023/examples_class/At_BlueDark_example/At_all_genes_tx2gene.csv . 
 ```
 
 ## Practica 3 - Expresión diferencial con DESeq2 <a name="practica3"></a>
