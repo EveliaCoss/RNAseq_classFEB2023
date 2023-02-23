@@ -3,8 +3,8 @@
 - [Practica 1 - Analisis de calidad de las lecturas y limpieza de adaptadores](#practica1) - 21-22 Feb 2023
 - [Practica 2 - Ensamblaje con el transcriptoma de referencia (kallisto)](#practica2) - 22 Feb 2023
 - [Practica 3 - Expresión diferencial con DESeq2](#practica3) - 23 Feb 2023
-- [Practica 4 - Expresión diferencial con edgeR](#practica4) - 24 Feb 2023
-- [Practica 5 - Análisis de terminos GO](#practica5) - 24 Feb 2023
+- [Practica 4 - Análisis de terminos GO](#practica4) - 24 Feb 2023
+- [Practica 5 - Keys](#practica5) - 24 Feb 2023
 
 ## Practica 1 - Analisis de calidad de las lecturas y limpieza de adaptadores  <a name="practica1"></a>
 
@@ -612,12 +612,141 @@ abundance.h5  abundance.tsv  run_info.json
 ### 8) Descarga de los archivos en tu computadora
 
 ```
-rsync -rptuvl ecoss@dna.liigh.unam.mx:/mnt/Timina/bioinfoII/rnaseq/BioProject_2023/examples_class/At_BlueDark_example/kallisto_quant . 
+rsync -rptuvl ecoss@dna.liigh.unam.mx:/mnt/Timina/bioinfoII/rnaseq/BioProject_2023/examples_class/At_BlueDark_example/kallisto_quant/SRR* . 
 ```
 
 ## Practica 3 - Expresión diferencial con DESeq2 <a name="practica3"></a>
-## Practica 4 - Expresión diferencial con edgeR <a name="practica4"></a>
-## Practica 5 - Análisis de terminos GO <a name="practica5"></a>
+
+Abrir RStudio y cargar los siguientes paquetes
+
+```
+library(tximport)
+library(tidyverse)
+library(DESeq2)
+library(ggplot2)
+library(ggrepel) # libreria que evita el overlap de texto en labels
+```
+
+Importacion de datos de kallisto en R
+
+```
+# > A. thaliana
+# generar tabla de metadatos
+At_metadata.tsv <- data.frame("SRA" =c("SRR1606325","SRR1608973", "SRR1608977", "SRR1609063", "SRR1609064",
+                                          "SRR1609065"), "sample" = c("control_R1","control_R2","control_R3", "luz_azul_R1", "luz_azul_R2", "luz_azul_R3") , "dex" = c(rep("control",3), rep("luz_azul",3)), "species" = "Arabidopsis_thaliana")
+
+# Anotacion articulo
+# Cargar los archivos por nombre del archivo (ubicacion empleando la anotacion de los 224 transcriptomas) 
+At_samples <- At_metadata.tsv
+At_files   <- file.path("./Kallisto_example_R", At_samples$SRA,"abundance.tsv")
+names(At_files) <- At_samples$SRA
+
+# Empleando la misma anotacion del articulo
+# previamente generado con clusterBED y R
+At_tx2gene   <- read.csv("At_all_genes_tx2gene.csv", sep=",",header=TRUE) 
+#tr2gn <- data.frame("gene_id"= tx2gene$geneID, "transcript_id" = tx2gene$transcriptID)
+At_txi_kallisto <- tximport(At_files, type = "kallisto", tx2gene=At_tx2gene)
+# Default = txIn = TRUE, txOut = FALSE, countsFromAbundance = "no"
+
+# nombre de los transcriptomas
+rownames(At_samples) <- At_samples$sample
+colnames(At_txi_kallisto$counts) <-rownames(At_samples) 
+
+# Que contiene el archivo?
+ names(At_txi_kallisto)
+
+# Importacion de los datos convirtiendolos en un objeto que puede leer Deseq.
+At_ddsTxi_all       <- DESeqDataSetFromTximport(At_txi_kallisto, At_samples, design = ~ dex) # Create a DESeq object from the tximport data
+
+# Prefiltrado, eliminacion de genes con bajas cuentas
+keep                <- rowSums(counts(At_ddsTxi_all)) >= 10
+At_ddsTxi_all       <- At_ddsTxi_all[keep,] 
+At_dds_all          <- DESeq(At_ddsTxi_all) # run Differential expression analysis 
+```
+
+### A) Cuentas normalizadas para graficas (rlog)
+
+```
+At_all_normalized <- rlog(At_dds_all, blind=FALSE) # result rld, vst
+At_all_normalized_db <- as.data.frame(assay(At_all_normalized))
+head(At_all_normalized_db)
+```
+PCA
+
+```
+plotPCA(At_all_normalized, intgroup=c("dex"))
+```
+
+### B) Expresion diferencial (TODOS LOS TRANSCRITOS)
+
+```
+At_res_all                              <- results(At_dds_all)  # Save the results
+mcols(At_res_all)$description # contraste shoot vs root
+#https://github.com/COMBINE-lab/salmon/issues/581
+
+# extraer UP
+At_all_de_gene_matrix_UP  <- subset(At_res_all, padj < 0.05 & log2FoldChange >= 0.5)
+write.table(At_all_de_gene_matrix_UP,file ="./At_all_DEG_kallisto_BlueLight.tsv", quote=FALSE, sep="\t")
+# Extraer nombres
+At_all_de_gene_names_UP <- rownames(At_all_de_gene_matrix_UP)
+
+# extraer down genes
+At_all_de_gene_matrix_DOWN  <- subset(At_res_all, padj < 0.05 & log2FoldChange < -0.5)
+write.table(At_all_de_gene_matrix_DOWN,file ="./At_all_DEG_kallisto_Control.tsv", quote=FALSE, sep="\t")
+# Extraer nombres
+At_all_de_gene_names_DOWN <- rownames(At_all_de_gene_matrix_DOWN)
+
+# Numero de genes expresados
+length(At_all_de_gene_names_UP)
+length(At_all_de_gene_names_DOWN)
+```
+
+#### C) volcano plot
+
+```
+At_de <- as.data.frame(At_res_all)
+# add a column of NAs
+At_de$diffexpressed <- "NO"
+
+# if log2Foldchange > 0.6 and pvalue < 0.05, set as "UP" 
+At_de$diffexpressed[At_de$log2FoldChange > 0.6 & At_de$pvalue < 0.05] <- "UP"
+# if log2Foldchange < -0.6 and pvalue < 0.05, set as "DOWN"
+At_de$diffexpressed[At_de$log2FoldChange < -0.6 & At_de$pvalue < 0.05] <- "DOWN"
+# Create a new column "names" to de, that will contain the name of a subset if genes differentially expressed (NA in case they are not)
+At_de$names <- NA
+# filter for a subset of interesting genes
+filter <- which(At_de$diffexpressed != "NO" & At_de$padj < 0.05 & (At_de$log2FoldChange >= 5  | At_de$log2FoldChange <= -5))
+At_de$names[filter] <- rownames(At_de)[filter]
+
+# grafica
+png(file = "volcano05-res.png",
+    width = 800, height = 800) # guardar el plot en formato png
+ggplot(data=At_de, aes(x=log2FoldChange, y=-log10(pvalue), col=diffexpressed, label=names)) +
+    geom_point() +
+    scale_color_manual(values=c("blue", "black", "red")) + # cambiar colores de puntos
+    theme_minimal() +
+    geom_text_repel() +
+    xlim(-15,15)
+
+dev.off()
+```
+
+#### D) Heatmap
+
+```
+library("pheatmap")
+# los primeros 20 genes
+select <- order(rowMeans(counts(At_dds_all,normalized=TRUE)),
+                decreasing=TRUE)[1:20]
+df <- as.data.frame(colData(At_dds_all)[,c("dex", "sample")])
+
+#heatmap
+pheatmap(assay(At_all_normalized)[select,], cluster_rows=FALSE, show_rownames=FALSE,
+         cluster_cols=FALSE, annotation_col=df)
+```
+
+## Practica 4 - Análisis de terminos GO <a name="practica4"></a>
+## Practica 5 - Keys <a name="practica5"></a>
 
 
 
