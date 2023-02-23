@@ -120,7 +120,7 @@ install.packages("stringr")
     <tr class="table-light">
       <th scope="row">3</th>
       <td><center>Importar datos en R, Normalización y Corrección por batch / DEG con DESeq2</center></td>
-      <td><center>Presentacion3</center></td>
+      <td><center>https://github.com/EveliaCoss/RNAseq_classFEB2023/blob/149ae3f12e30366c982f3cc3418d00af0b1658c1/RNA_seq/slides/D3_Normalizacion_batch_sesion.pdf</center></td>
       <td><center>https://github.com/EveliaCoss/RNAseq_classFEB2023/blob/main/RNA_seq/README.md#practica3</center></td>
   </tr>
     </tr>
