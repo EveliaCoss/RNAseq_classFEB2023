@@ -101,7 +101,6 @@ Por lo tanto:
 |chmod u=rw,g=r,o=       | chmod 640 |
 |chmod u=rw,go=          | chmod 600 |
 |chmod u=rwx,go=         | chmod 700 |
-x------------------------x-----------x
 
 Como no estamos en nigun grupos, todos estamos en "otros", recomiendo que cambien todo lo que generen con:
 
@@ -308,7 +307,7 @@ multiqc ./FastQC_trimmed -o ./FastQC_trimmed
 ### 4) Descarga de los archivos en tu computadora
 
 ```
-rsync -rptuvl ecoss@dna.liigh.unam.mx:/mnt/Timina/bioinfoII/rnaseq/examples_class/At_BlueDark_example/COVID_virus/data/multiqc_report.html . 
+rsync -rptuvl ecoss@dna.liigh.unam.mx:/mnt/Timina/bioinfoII/rnaseq/examples_class/At_BlueDark_example/multiqc_report.html . 
 ```
 
 ### 5) Mandar todo en un job
@@ -449,26 +448,29 @@ mkdir kallisto_quant
 module load kallisto/0.45.0 # cargar modulo de kallisto
 kallisto index -i ./kallisto_quant/At_ref.kidx At_stringm_seq_v2.fasta
 ```
-- i nombre del archivo de salida, i.e., indice
-- Input =  At_stringm_seq_v2.fasta, transcriptoma de referencia
+
+* -i nombre del archivo de salida, i.e., indice
+* Input =  At_stringm_seq_v2.fasta, transcriptoma de referencia
 
 ### 3) Pseudoalineamiento con Kallisto
 
 ```
 # Single-end
-for file in ./data_trimmed/*.fastq.gz
+for file in ./data_trimmed/*trimmed.fq.gz
 do
-  clean=$(echo $file | sed 's/\.fastq\.gz//')           # Nombre de la carpeta de salida, mismo nombre de SRA
-  kallisto quant --index ./kallisto_quant/At_ref.kidx --output-dir $clean --threads 8 $file
+  clean=$(echo $file | sed 's/^.\{15\}//g;s/_trimmed//;s/\.fastq\.gz//;s/\.fq\.gz//')   # Nombre de la carpeta de salida, mismo nombre de SRA
+  kallisto quant --index ./kallisto_quant/At_ref.kidx --output-dir ./kallisto_quant/${clean} --single -l 200 -s 20  --threads=12 $file
 done
+
+# Nota: Debes poner --single -l -s, obligatorio.
 
 
 # Paired-end
-for file in ./data_trimmed/*_1.fastq.gz                 # Read1
+for file in ./data_trimmed/*_1.fastq.gz                                                         # Read1
 do
-  clean=$(echo $file | sed 's/_1\.fastq\.gz//')         # Nombre de la carpeta de salida, mismo nombre de SRA
-  file_2=$(echo ${clean}_2.fastq.gz| sed 's/FP/RP/')    # Read2
-  kallisto quant --index ./kallisto_quant/At_ref.kidx --output-dir $clean --threads 8 ${file} ${file_2}
+  clean=$(echo $file | sed 's/^.\{15\}//g;s/_trimmed//;s/\.fastq\.gz//;s/_1\.fq\.gz//')         # Nombre de la carpeta de salida, mismo nombre de SRA
+  file_2=$(echo ${clean}_2.fastq.gz| sed 's/FP/RP/')                                            # Read2
+  kallisto quant --index ./kallisto_quant/At_ref.kidx --output-dir ./kallisto_quant/${clean} --threads 12 ${file} ${file_2}
 done
 ```
 
@@ -518,6 +520,7 @@ do
   clean=$(echo $file | sed 's/^.\{15\}//g;s/_trimmed//;s/\.fastq\.gz//;s/\.fq\.gz//')   # Nombre de la carpeta de salida, mismo nombre de SRA
   kallisto quant --index ./kallisto_quant/At_ref.kidx --output-dir ./kallisto_quant/${clean} --single -l 200 -s 20  --threads=12 $file
 done
+
 ```
 
 * -l 200 : mean = 200
@@ -604,6 +607,12 @@ abundance.h5  abundance.tsv  run_info.json
 
 kallisto_quant/SRR1609065:
 abundance.h5  abundance.tsv  run_info.json
+```
+
+### 8) Descarga de los archivos en tu computadora
+
+```
+rsync -rptuvl ecoss@dna.liigh.unam.mx:/mnt/Timina/bioinfoII/rnaseq/BioProject_2023/examples_class/At_BlueDark_example/kallisto_quant . 
 ```
 
 ## Practica 3 - Expresión diferencial con DESeq2 <a name="practica3"></a>
