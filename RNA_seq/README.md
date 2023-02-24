@@ -1011,6 +1011,10 @@ At_treatment_visualplot %>% ggplot(aes(x=Annotated, y = reorder(Term, Annotated)
         strip.background = element_blank()) 
 ```
 
+![Fig1](img/Fig1_AtGoterm_example.png)
+
+![Fig1](img/Fig2_AtGoterm_example.png)
+
 ## Practica 5 - Keys <a name="practica5"></a>
 
 Solo en la clase presecial. Correcto uso de keys para el cluster.
