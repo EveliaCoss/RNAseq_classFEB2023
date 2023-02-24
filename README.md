@@ -148,5 +148,5 @@ install.packages("ggplot2")
 - [Tuxedo workshop](https://github.com/trinityrnaseq/RNASeq_Trinity_Tuxedo_Workshop/wiki)
 - [GSEA](https://bioinformaticsbreakdown.com/how-to-gsea/)
 - [clusterProfiler](https://bioinformatics-core-shared-training.github.io/cruk-summer-school-2018/RNASeq2018/html/06_Gene_set_testing.nb.html)
-
+- [Analyzing RNA-seq data with DESeq2](http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#heatmap-of-the-count-matrix)
 
