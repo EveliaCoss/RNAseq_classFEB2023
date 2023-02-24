@@ -735,6 +735,8 @@ ggplot(data=At_de, aes(x=log2FoldChange, y=-log10(pvalue), col=diffexpressed, la
 dev.off()
 ```
 
+![volcano](img/volcano05-res.png)
+
 #### D) Heatmap
 
 ```
