@@ -64,8 +64,8 @@ Programas
 * Paquetes de R con Bioconductor
   - Biconductor
   - DESeq2
-  - edgeR
   - tximport
+  - topGO
 
 ```
 # Instalar Bioconductor
@@ -74,14 +74,17 @@ if (!require("BiocManager", quietly = TRUE))
 BiocManager::install(version = "3.16")
 
 # Paquetes / librerias
-paquetes = c("DESeq2", "tximport")
+paquetes = c("DESeq2", "tximport", "topGO")
 BiocManager::install(paquetes)
 ```
 
 * Paquetes de R
   - RColorBrewer (opcional)
   - tidyverse
-  - dplyr, stringr
+  - dplyr
+  - stringr
+  - ggrepel
+  - ggplot2
 
 ```
 install.packages("tidyverse")
@@ -138,10 +141,11 @@ install.packages("ggplot2")
 
 ### Referencias 📚
 
-- [Curso 2022](https://github.com/mpadilla905/clase_RNA-seq_LCGEJ2022)
+- [Curso 2022 - Monica Padilla](https://github.com/mpadilla905/clase_RNA-seq_LCGEJ2022)
 - [Minicurso 2021](https://comunidadbioinfo.github.io/minicurso_abr_2021/)
 - [Curso Dra. Selene Fernandez](https://github.com/liz-fernandez/PBI_transcriptomics_2022)
 - [Tuxedo workshop](https://github.com/trinityrnaseq/RNASeq_Trinity_Tuxedo_Workshop/wiki)
-
+- [GSEA](https://bioinformaticsbreakdown.com/how-to-gsea/)
+- [clusterProfiler](https://bioinformatics-core-shared-training.github.io/cruk-summer-school-2018/RNASeq2018/html/06_Gene_set_testing.nb.html)
 
 
