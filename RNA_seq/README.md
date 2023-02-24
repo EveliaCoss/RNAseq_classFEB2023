@@ -310,6 +310,13 @@ multiqc ./FastQC_trimmed -o ./FastQC_trimmed
 rsync -rptuvl ecoss@dna.liigh.unam.mx:/mnt/Timina/bioinfoII/rnaseq/examples_class/At_BlueDark_example/multiqc_report.html . 
 ```
 
+Subir archivos al cluster
+
+```
+rsync -av ./archivo ecoss@dna.liigh.unam.mx:/mnt/Timina/bioinfoII/rnaseq/
+```
+
+
 ### 5) Mandar todo en un job
 
 Necesitas un sh y un sge
