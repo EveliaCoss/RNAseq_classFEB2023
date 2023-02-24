@@ -750,8 +750,271 @@ pheatmap(assay(At_all_normalized)[select,], cluster_rows=FALSE, show_rownames=FA
 ```
 
 ## Practica 4 - Análisis de terminos GO <a name="practica4"></a>
+
+### 1) Obtener la base de datos de la especie
+
+#### Extraer informacion de la base de datos
+
+```
+#Bases de datos contenidas en ensembl plant
+library(biomaRt)
+listMarts(host="plants.ensembl.org")
+
+# hongos-David
+listMarts(host="ensembl.org")
+
+#Lista de especies contenidas
+plant_ensembl <- useEnsembl(biomart="plants_mart", host ="plants.ensembl.org" )
+head(listDatasets(plant_ensembl))
+
+# todos lo que contiene enssembl
+all_ensembl <- useEnsembl(biomart="ensembl")
+head(listDatasets(all_ensembl))
+
+# Para ver todas las bases de datos contenidas en Ensembl
+View(listDatasets(all_ensembl))
+```
+
+Arabidopsis thaliana  = athaliana_eg_gene
+Homo sapiens = hsapiens_gene_ensembl
+
+#### Extraer base de datos de Arabidopsis
+
+```
+athaliana_database <- useMart(biomart = "plants_mart", host = "plants.ensembl.org", dataset = "athaliana_eg_gene")
+head(listFilters(athaliana_database))
+head(listAttributes(athaliana_database))
+```
+
+#### Extraer biotipos de genes
+
+En esta seccion se extraen los id de los genes pertenecientes a las categorias: **ncRNAs, snoRNAs, snRNAs, tRNA, rRNA, lncRNA, protein-coding, pre-miRNAs**, etc.
+
+```
+athaliana_biotype_genes <- getBM(c("ensembl_gene_id","gene_biotype"), mart=athaliana_database)
+unique(athaliana_biotype_genes$gene_biotype)
+```
+
+### 2) Analisis de terminos GO
+
+#### Obtener todos los terminos GO anotados en la especie
+
+```
+library(topGO)
+#BiocManager::install("topGO")
+# Extraer los terminos GO
+At_GOgenes <- getBM(attributes=c('ensembl_gene_id', 'go_id'), mart=athaliana_database)
+
+head(At_GOgenes)
+
+# Guardamos la lista de genes un archivo tsv.
+write.table(At_GOgenes, file = "./At_geneid2go.map",sep = "\t", row.names = FALSE, col.names = FALSE, quote = FALSE)
+```
+
+Se empleo la funcion **getBM** para filtrar los datos previamente recolectados de Ensembl Plant con la paqueteria **biomaRT**. Ademas, lso datos se guardaron en forma de lista para ser procesados posteriormente por **TopGO (ENSEMBL)**.
+
+#### Conversion de Ensembl IDs a Entrez IDs y Obtener Universo
+
+```
+# > Universo
+# Despues de esto la podemos leer y transformarla al formato necesario para poder usarla como base de datos por topGO
+At_geneID2GO <- readMappings("./At_geneid2go.map")
+str(head(At_geneID2GO))
+
+# Obtener nombre de los genes de GO a gene ID
+GO2geneID <- inverseList(At_geneID2GO)
+str(head(GO2geneID))
+
+# Se tiene que modificar la lista de genes para que pueda ser utilizada por topGO
+At_geneNames <- names(At_geneID2GO) # universo
+head(At_geneNames)
+```
+
+#### Obtener terminos GO de los DEG
+
+```
+#---------------### A) Matriz binaria ---------------------------------
+# > Luz azul
+At_gene.names.up.go <- unlist(strsplit(At_all_de_gene_names_UP, split = "|", fixed = TRUE))
+At_geneList.up <- factor(as.integer(At_geneNames %in% At_all_de_gene_names_UP))
+names(At_geneList.up) <- At_geneNames
+head(At_geneList.up)
+str(At_geneList.up)
+
+# > Control
+At_gene.names.down.go <- unlist(strsplit(At_all_de_gene_names_DOWN, split = "|", fixed = TRUE))
+At_geneList.down <- factor(as.integer(At_geneNames %in% At_all_de_gene_names_DOWN))
+names(At_geneList.down) <- At_geneNames
+head(At_geneList.down)
+
+#---------------### B) Obtencion de terminos GO---------------------------------
+# > Luz azul
+# Despues de esto y con la lista de genes previamente identificados podemos generar un objeto GO.
+At_GOdata.up <- new("topGOdata", ontology = "BP", allGenes = At_geneList.up, 
+              annot = annFUN.gene2GO, gene2GO= At_geneID2GO)
+At_GOdata.up
+
+#Numero de genes
+numGenes(At_GOdata.up)
+
+# > Control
+At_GOdata.down <- new("topGOdata", ontology = "BP", allGenes = At_geneList.down, 
+              annot = annFUN.gene2GO, gene2GO= At_geneID2GO)
+At_GOdata.down
+
+#Numero de genes
+numGenes(At_GOdata.down)
+
+#------------### C) Prueba de Fisher-------------------------------
+# > Parte aerea
+At_resultsFisher.up <- runTest(At_GOdata.up, algorithm = "classic", statistic = "fisher")
+At_resultsFisher.up
+
+#> Raices
+At_resultsFisher.down <- runTest(At_GOdata.down, algorithm = "classic", statistic = "fisher")
+At_resultsFisher.down
+
+#Nombre de los genes
+At_Blue_a <- genes(At_GOdata.up)
+#At_shoot_a
+At_Control_a <- genes(At_GOdata.down)
+
+# una muestra de genes mas interesantes
+At_blue_selGenes <- sample(At_Blue_a, 10) 
+At_blue_gs <- geneScore(At_GOdata.up, whichGenes = At_blue_selGenes)
+
+At_Control_selGenes <- sample(At_Control_a, 10) 
+At_Control_gs <- geneScore(At_GOdata.down, whichGenes = At_Control_selGenes)
+
+# > Muestra de genes anotados
+sg <- sigGenes(At_GOdata.up)
+str(sg)
+
+# Numero de genes anotados
+numSigGenes(At_GOdata.up) # 22850 genes con terminos GO en shoot
+numSigGenes(At_GOdata.down) #22512 genes con terminos GO en root
+
+# ----------------Top 10 numero de genes encontrados en los GO----------
+sel.terms <- sample(usedGO(At_GOdata.up), 10)
+num.ann.genes <- countGenesInTerm(At_GOdata.up, sel.terms) ## the number of annotated genes
+num.ann.genes
+
+ann.genes <- genesInTerm(At_GOdata.up, sel.terms) ## get the annotations
+head(ann.genes)
+
+# estadistico
+termStat(At_GOdata.up, sel.terms)
+```
+
+Seleccion por pvalue de la prueba de fisher
+
+```
+# > Terminos GO encontrados en la blue light (up)
+# Summary de todos los resultados. 
+At_blue.table <- GenTable(At_GOdata.up, classicFisher = At_resultsFisher.up,
+         orderBy = "classicFisher", ranksOf = "classicFisher", topNodes = 10)
+
+# corregir de chr a num en classicFisher
+At_blue.table$classicFisher <- as.numeric(At_blue.table$classicFisher)
+
+# Filtrado
+At_blueGO <- as.data.frame(At_blue.table[At_blue.table$classicFisher <= 0.05,])
+At_blueGO
+str(At_blueGO)
+dim(At_blueGO)
+
+# >Terminos GO encontrados en el control (down)
+# Summary de todos los resultados. 
+At_control.table <- GenTable(At_GOdata.down, classicFisher = At_resultsFisher.down,
+         orderBy = "classicFisher", ranksOf = "classicFisher", topNodes = 10)
+
+
+showGroupDensity(At_GOdata.down, "GO:0010015", ranks = FALSE, rm.one = FALSE)
+
+# corregir de chr a num en classicFisher
+At_control.table$classicFisher <- as.numeric(At_control.table$classicFisher)
+
+At_controlGO <- as.data.frame(At_control.table[At_control.table$classicFisher <= 0.05,])
+At_controlGO
+str(At_controlGO)
+dim(At_controlGO)
+```
+
+Con **topNodes**  puedes indicar el numero de terminos globales que quieres.
+
+
+#### Grafica
+
+```
+# Reducir informacion
+#blue
+At_blue_visualplot <- At_blueGO[,c(1,2,3,6)] #col ID, term, annotated and classicFisher
+head(At_blue_visualplot)
+dim(At_blue_visualplot)
+
+#control
+At_control_visualplot <- At_controlGO[,c(1,2,3,6)]
+head(At_control_visualplot)
+dim(At_control_visualplot)
+
+# Grafica
+library(ggplot2)
+library(dplyr)
+
+#conversion de chr a num
+At_blue_visualplot$classicFisher <- as.numeric(At_blue_visualplot$classicFisher)
+str(At_blue_visualplot)
+At_blue_visualplot$dex <- "blue"
+
+At_control_visualplot$classicFisher <- as.numeric(At_control_visualplot$classicFisher)
+str(At_control_visualplot)
+At_control_visualplot$dex <- "control"
+
+# unir ambos datos
+At_treatment_visualplot <- rbind(At_blue_visualplot, At_control_visualplot)
+colnames(At_treatment_visualplot) <- c("GO.ID", "Term", "Annotated", "padjust", "dex")
+# Orden
+At_treatment_visualplot <-At_treatment_visualplot[order(At_treatment_visualplot$Annotated, decreasing = T), ]
+
+# Fig 1- Nuestros primeros pasos
+At_treatment_visualplot %>% ggplot(aes(x=dex, y = Term, size= Annotated, color =padjust)) + geom_point(alpha=1.0) +
+  scale_color_gradient(low="blue", high="red") +
+  labs(title = "Enriquecimiento de terminos GO (all)", #GO Biological processes
+       x = "A.thaliana", y = "",
+      caption = 'Cut-off of padj=0.05') + # agregar x y y label
+  theme_light() +
+  theme(text = element_text(size=12, family="sans"), 
+        axis.title.x = element_text(face = "italic",  family="sans")) # controlar label x
+
+# classicFisher = p.adjust
+# Annotated = Count
+
+# Fig 2 - Numero de genes por Go term
+At_treatment_visualplot %>% ggplot(aes(x=Annotated, y = reorder(Term, Annotated), fill=dex)) + 
+  geom_bar(stat = "identity") +
+  geom_text(
+        aes(label = Annotated), # Agregar informacion en numeros
+        color = "black",
+        size = 4,
+        hjust=0.5,
+        position = position_dodge(0.9)) +
+  scale_fill_manual(values=c("blue", "gray")) +#colores de relleno, cafe y verde (root and shoot)
+  facet_wrap(~dex, scales="free") +
+  labs(title = "Enriquecimiento de terminos GO (all)", #GO Biological processes
+       x = "A.thaliana", y = "",
+      caption = 'Cut-off of padj=0.05') + # agregar x y y label
+  theme_classic()+
+  theme(text = element_text(size=12, family="sans"), 
+        axis.title.x = element_text(face = "italic",  family="sans"),# controlar label x
+        legend.position = "none", 
+        legend.title = element_blank(), 
+        strip.background = element_blank()) 
+```
+
 ## Practica 5 - Keys <a name="practica5"></a>
 
+Solo en la clase presecial. Correcto uso de keys para el cluster.
+Ya no necesitaras poner tu password.
 
 
 
