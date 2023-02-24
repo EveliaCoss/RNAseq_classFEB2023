@@ -128,7 +128,7 @@ install.packages("ggplot2")
     </tr>
     <tr class="table-light">
       <th scope="row">4</th>
-      <td><center>DEG con edgeR / Análisis funcional</center></td>
+      <td><center>GSEA - Análisis funcional</center></td>
       <td><center>https://github.com/EveliaCoss/RNAseq_classFEB2023/blob/f9e459faebaa72c2eaf4daad63d03fc313d5bfc6/RNA_seq/slides/D4_ExpresionDiferencial_sesion.pdf</center></td>
       <td><center>https://github.com/EveliaCoss/RNAseq_classFEB2023/blob/main/RNA_seq/README.md#practica4</center></td>
   </tr>
