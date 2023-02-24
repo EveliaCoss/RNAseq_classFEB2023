@@ -66,6 +66,7 @@ Programas
   - DESeq2
   - tximport
   - topGO
+  - biomaRT
 
 ```
 # Instalar Bioconductor
@@ -74,7 +75,7 @@ if (!require("BiocManager", quietly = TRUE))
 BiocManager::install(version = "3.16")
 
 # Paquetes / librerias
-paquetes = c("DESeq2", "tximport", "topGO")
+paquetes = c("DESeq2", "tximport", "topGO", "biomaRT")
 BiocManager::install(paquetes)
 ```
 
