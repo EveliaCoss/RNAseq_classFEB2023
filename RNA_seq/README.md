@@ -784,8 +784,8 @@ head(listDatasets(all_ensembl))
 View(listDatasets(all_ensembl))
 ```
 
-Arabidopsis thaliana  = athaliana_eg_gene
-Homo sapiens = hsapiens_gene_ensembl
+- Arabidopsis thaliana  = `athaliana_eg_gene`
+- Homo sapiens = `hsapiens_gene_ensembl`
 
 #### Extraer base de datos de Arabidopsis
 
@@ -800,7 +800,12 @@ head(listAttributes(athaliana_database))
 En esta seccion se extraen los id de los genes pertenecientes a las categorias: **ncRNAs, snoRNAs, snRNAs, tRNA, rRNA, lncRNA, protein-coding, pre-miRNAs**, etc.
 
 ```
+# Arabidopsis thaliana
 athaliana_biotype_genes <- getBM(c("ensembl_gene_id","gene_biotype"), mart=athaliana_database)
+
+# Homo sapiens
+hsapiens_database <- useMart(biomart = "ENSEMBL_MART_ENSEMBL", host = "ensembl.org", dataset = "hsapiens_gene_ensembl")
+
 unique(athaliana_biotype_genes$gene_biotype)
 ```
 
