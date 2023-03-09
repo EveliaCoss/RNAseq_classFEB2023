@@ -416,7 +416,9 @@ A) Puedes descargarlo de alguna base de datos
 
 ```
 # /mnt/Timina/bioinfoII/rnaseq/BioProject_2023/examples_class/
-wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M28/gencode.vM28.transcripts.fa.gz
+# wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M28/gencode.vM28.transcripts.fa.gz # raton
+# correccion
+wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_43/gencode.v43.transcripts.fa.gz # humano
 ```
 
 B) Puedes generarlo
