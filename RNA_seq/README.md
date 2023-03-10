@@ -442,7 +442,7 @@ ecoss@dna.liigh.unam.mx:/mnt/Timina/bioinfoII/rnaseq/BioProject_2023/examples_cl
 
 ```
 # Homo sapiens
-ln -s /mnt/Timina/bioinfoII/rnaseq/BioProject_2023/examples_class/Human_cells_example/gencode.vM28.transcripts.fa.gz . 
+ln -s /mnt/Timina/bioinfoII/rnaseq/BioProject_2023/examples_class/Human_cells_example/gencode.v43.transcripts.fa.gz . 
 
 # Arabidopsis thaliana
 ln -s /mnt/Timina/bioinfoII/rnaseq/BioProject_2023/examples_class/At_BlueDark_example/At_stringm_seq_v2.fasta .
