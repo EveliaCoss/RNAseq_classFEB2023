@@ -112,7 +112,7 @@ install.packages("ggplot2")
     <tr class="table-light">
       <th scope="row">1</th>
       <td><center>Aspectos generales de RNA-Seq</center></td>
-      <td><center>https://github.com/EveliaCoss/RNAseq_classFEB2023/blob/3593a9d29f484aab8dd7fb63ab38a6ea725dc59f/RNA_seq/slides/D1_IntroRNASeq_CosasTecnicas.pdf</center></td>
+      <td><center> [Clase 1 - QC](https://github.com/EveliaCoss/RNAseq_classFEB2023/blob/3593a9d29f484aab8dd7fb63ab38a6ea725dc59f/RNA_seq/slides/D1_IntroRNASeq_CosasTecnicas.pdf)</center></td>
       <td><center>https://github.com/EveliaCoss/RNAseq_classFEB2023/blob/main/RNA_seq/README.md#practica1</center></td>
   </tr>
    </tr>
